@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tec77.bsatahalk.view.activity.LessonConclusionActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/LessonConclusionActivity_Toolbar_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:gravity="top"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <TextView
+                android:id="@+id/LessonConclusionActivity_TextView_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/medium_margin"
+                android:gravity="center"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/large_text_size"
+                android:text="@string/conclusion"
+                tools:ignore="RtlCompat" />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@drawable/home_header"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LessonConclusionActivity_LinearLayout_NetworkFailed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/medium_margin"
+                android:layout_marginRight="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/xxx_large_margin"
+                android:background="@drawable/rounded_shape_txtview"
+                android:gravity="center"
+                android:padding="@dimen/small_padding"
+                android:text="@string/no_internet"
+                android:textColor="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/LessonConclusionActivity_btn_refreshConnection"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/small_margin"
+                android:background="@drawable/btn_login_shape"
+                android:text="@string/try_again"
+                android:textAllCaps="false"
+                android:textColor="@color/whiteColor" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/LessonConclusionActivity_frameLayout_contnent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/LessonConclusionActivity_TextView_noConclusionAvailable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_margin"
+                android:background="@drawable/rounded_shape_txtview"
+                android:gravity="center"
+                android:padding="@dimen/large_padding"
+                android:text="@string/no_conclusion"
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone" />
+
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/LessonConclusionActivity_swipeRefreshLayout_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/LessonConclusionActivity_RecyclerView_conclusionRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <com.victor.loading.rotate.RotateLoading
+                android:id="@+id/LessonConclusionActivity_RotateLoading_loading"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                app:loading_color="@color/colorPrimary"
+                app:loading_width="2dp" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

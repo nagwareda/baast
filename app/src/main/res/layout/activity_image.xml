@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tec77.bsatahalk.view.activity.ImageActivity">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/ImageActivity_ImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:failureImage="@drawable/defult_img" />
+    <!--<com.github.piasy.biv.view.BigImageView-->
+    <!--android:id="@+id/ImageActivity_ImageView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--app:failureImage="@drawable/defult_img"-->
+    <!--app:failureImageInitScaleType="center"-->
+    <!--app:optimizeDisplay="true"/>-->
+
+</LinearLayout>

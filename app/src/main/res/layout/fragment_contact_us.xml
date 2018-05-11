@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tec77.bsatahalk.view.fragment.ContactUsFragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="@drawable/home_header"></LinearLayout>
+    <EditText
+        android:id="@+id/ContactUsActivity_TextView_message"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="top"
+        android:layout_margin="@dimen/small_margin"
+        android:padding="@dimen/small_padding"
+        android:hint="@string/enter_your_message"
+        android:background="@drawable/rounded_shape_txtview"/>
+
+    <Button
+        android:id="@+id/ContactUsActivity_btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:layout_marginLeft="@dimen/xxx_large_margin"
+        android:layout_marginRight="@dimen/xxx_large_margin"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:background="@drawable/btn_login_shape"
+        android:text="@string/send"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteColor"
+        android:textSize="18sp" />
+
+</LinearLayout>

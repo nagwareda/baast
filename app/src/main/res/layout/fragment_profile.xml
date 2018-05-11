@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ProfileFragment_LinearLayout_NetworkFailed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/xxx_large_margin"
+            android:background="@drawable/rounded_shape_txtview"
+            android:gravity="center"
+            android:padding="@dimen/small_padding"
+            android:text="@string/no_internet"
+            android:textColor="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/ProfileFragment_btn_refreshConnection"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/small_margin"
+            android:background="@drawable/btn_login_shape"
+            android:text="@string/try_again"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteColor" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/home_header" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/x_large_margin"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ProfileFragment_image_profile"
+                android:layout_width="100dp"
+                android:layout_height="96dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/fake_profile" />
+
+
+            <TextView
+                android:id="@+id/ProfileFragment_txt_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/tiny_margin"
+                android:text="@string/fakeName"
+                android:textColor="@color/blackColor"
+                android:textSize="@dimen/medium_text_size" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/ProfileFragment_txt_ediom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_margin"
+        android:gravity="center"
+        android:padding="@dimen/tiny_padding"
+        android:text="إن الذي ملأ اللغات محاسن جعل الجمال وسره في الضاد (الشاعر أحمد شوقي)"
+        android:textColor="@color/blackColor"
+        android:textSize="@dimen/small_text_size"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x_large_margin"
+        android:layout_marginRight="@dimen/x_large_margin"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="@dimen/small_padding"
+                android:src="@drawable/quiz_no" />
+
+            <TextView
+                android:id="@+id/ProfileFragment_txt_quizesNoTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectange_shape_txtview"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:textColor="@color/blackColor"
+                android:textSize="@dimen/small_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="@dimen/small_padding"
+                android:src="@drawable/degree" />
+
+            <TextView
+                android:id="@+id/ProfileFragment_txt_totalDegreeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectange_shape_txtview"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:textColor="@color/blackColor"
+                android:textSize="@dimen/small_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/medium_margin"
+                android:layout_marginRight="@dimen/medium_margin"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="@dimen/small_padding"
+                    android:src="@drawable/envelope" />
+
+                <TextView
+                    android:id="@+id/ProfileFragment_txt_emailTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/tiny_margin"
+                    android:text="@string/fake_email"
+                    android:textColor="@color/blackColor"
+                    android:textSize="@dimen/medium_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/medium_margin"
+                android:layout_marginRight="@dimen/medium_margin"
+                android:gravity="start|center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="@dimen/small_padding"
+                    android:src="@drawable/call" />
+
+                <TextView
+                    android:id="@+id/ProfileFragment_txt_phoneTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="000"
+                    android:textColor="@color/blackColor"
+                    android:textSize="@dimen/small_text_size" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--<ImageView-->
+        <!--android:layout_width="140dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_gravity="end"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:src="@drawable/reader"/>-->
+    </LinearLayout>
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="@dimen/small_margin"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="@dimen/small_margin"-->
+    <!--android:layout_marginRight="@dimen/small_margin"-->
+    <!--android:text="@string/quiz_number"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:textSize="@dimen/small_text_size"-->
+    <!--android:textStyle="bold" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/ProfileFragment_txt_quizesNoTxt"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textColor="@color/blackColor"-->
+    <!--android:textSize="@dimen/small_text_size" />-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="@dimen/small_margin"-->
+    <!--android:layout_marginRight="@dimen/small_margin"-->
+    <!--android:text="@string/total_degree"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:textSize="@dimen/small_text_size"-->
+    <!--android:textStyle="bold" />-->
+
+
+    <!--</LinearLayout>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|end"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/ProfileFragment_Btn_EditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="@color/colorPrimary"
+            android:paddingLeft="@dimen/x_large_padding"
+            android:paddingRight="@dimen/x_large_padding"
+            android:text="@string/editProfile"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/small_text_size" />
+        <Button
+            android:id="@+id/ProfileFragment_Btn_changePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="@color/colorPrimary"
+            android:paddingLeft="@dimen/x_large_padding"
+            android:paddingRight="@dimen/x_large_padding"
+            android:text="@string/change_password"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/small_text_size" />
+
+
+
+        <Button
+            android:id="@+id/ProfileFragment_Btn_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginRight="@dimen/small_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_weight="1"
+            android:background="@drawable/btn_login_shape"
+            android:paddingLeft="@dimen/x_large_padding"
+            android:paddingRight="@dimen/x_large_padding"
+            android:text="@string/save"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/small_text_size"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+
+
+
+

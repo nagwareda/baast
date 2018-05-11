@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/QuiezActivity_SwipeRefreshLayout_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tec77.bsatahalk.view.activity.QuizActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:fitsSystemWindows="true"
+                    app:elevation="0dp"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/QuiezActivity_Toolbar_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@color/colorPrimary"
+                        android:gravity="top"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                        <TextView
+                            android:id="@+id/QuiezActivity_TextView_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/small_margin"
+                            android:gravity="center"
+                            android:text="@string/quize_title"
+                            android:textColor="@color/whiteColor"
+                            android:textSize="@dimen/large_text_size"
+                            tools:ignore="RtlCompat" />
+
+                    </android.support.v7.widget.Toolbar>
+                </android.support.design.widget.AppBarLayout>
+
+                <LinearLayout
+                    android:id="@+id/QuiezActivity_LinearLayout_NetworkFailed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/xxx_large_margin"
+                        android:text="@string/no_internet"
+                        android:textColor="@color/blackColor" />
+
+                    <Button
+                        android:id="@+id/QuiezActivity_btn_refreshConnection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/small_margin"
+                        android:background="@drawable/btn_login_shape"
+                        android:text="@string/try_again"
+                        android:textAllCaps="false"
+                        android:textColor="@color/whiteColor" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/QuiezActivity_frameLayout_contnent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/QuiezActivity_TextView_noQuizeAvailable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/large_margin"
+                        android:background="@drawable/rounded_shape_txtview"
+                        android:gravity="center"
+                        android:padding="@dimen/large_padding"
+                        android:text="@string/no_quizes"
+                        android:textColor="@color/blackColor"
+                        android:visibility="gone" />
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/QuiezActivity_RecyclerView_quezzRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/QuiezActivity_btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_marginLeft="@dimen/xxx_large_margin"
+                android:layout_marginRight="@dimen/xxx_large_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:background="@drawable/btn_login_shape"
+                android:text="@string/check"
+                android:textAllCaps="false"
+                android:textColor="@color/whiteColor"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/total_score"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/medium_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/blackColor"
+                    android:textSize="@dimen/medium_text_size"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/appwidget_bg_clickable">
+        
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/logo_"
+            android:layout_margin="@dimen/small_margin"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="32dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="@dimen/tiny_margin"
+            android:layout_marginBottom="@dimen/tiny_margin"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="test"
+            android:padding="@dimen/small_padding"
+            android:textSize="@dimen/medium_text_size"
+            android:textStyle="bold"
+            android:textColor="@color/blackColor"
+            />
+        <Button
+            android:id="@+id/appWediget_btn_view"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="view"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="@dimen/small_text_size"
+            android:background="#d2d4d2"
+            />
+    </LinearLayout>
+</FrameLayout>

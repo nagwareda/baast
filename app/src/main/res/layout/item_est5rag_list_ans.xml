@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginLeft="@dimen/large_margin"
+        android:layout_marginRight="@dimen/large_margin"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/item_EditText_est5rag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/tiny_padding"
+            android:hint="@string/selected_word"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textSize="@dimen/medium_text_size"
+            android:textColorHint="@color/blackColor" />
+    </android.support.design.widget.TextInputLayout>
+
+    <!--<TextView-->
+        <!--android:id="@+id/item_textView_est5rag"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_marginLeft="@dimen/large_margin"-->
+        <!--android:layout_marginRight="@dimen/large_margin"-->
+        <!--android:visibility="gone"-->
+        <!--android:textSize="@dimen/medium_text_size"-->
+        <!--android:textStyle="bold"-->
+        <!--android:hint="@string/al_e3rab" />-->
+
+</LinearLayout>
