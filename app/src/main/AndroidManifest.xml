@@ -95,7 +95,7 @@
         <activity android:name=".view.activity.ImageActivity" />
         <activity android:name=".view.activity.EditProfileActivity" />
         <activity android:name=".view.ChangePasswordActvity" />
-        <activity android:name=".view.activity.LoginActivity"></activity>
+        <activity android:name=".view.activity.LoginActivity" />
     </application>
 
 </manifest>

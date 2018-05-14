@@ -76,7 +76,7 @@
                     android:gravity="center"
                     android:padding="@dimen/small_padding"
                     android:text="فاعل"
-                    android:textColor="@color/gray"
+                    android:textColor="@color/red_color_Dark"
                     android:textStyle="bold" />
 
                 <View
@@ -103,7 +103,7 @@
                     android:gravity="center"
                     android:padding="@dimen/small_padding"
                     android:text="الضمة"
-                    android:textColor="@color/gray"
+                    android:textColor="@color/red_color_Dark"
                     android:textStyle="bold" />
 
                 <View

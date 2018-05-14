@@ -24,7 +24,7 @@ import com.tec77.bsatahalk.view.activity.EditProfileActivity;
 
 public class ProfileFragment extends Fragment implements ProfileResponseListener, View.OnClickListener {
 
-    private TextView nameTxt, emailTxt, phoneTxt, quizzesNoTxt, totlaDgreeTxt, title;
+    private TextView nameTxt, emailTxt, phoneTxt, quizzesNoTxt, totlaDgreeTxt, title,ediom;
     private LinearLayout networkFailedLinearLayout;
     private Button refreshConnection, forgetPassBtn, editProfileBtn;
     private ImageView profile;
@@ -64,6 +64,8 @@ public class ProfileFragment extends Fragment implements ProfileResponseListener
         networkFailedLinearLayout = view.findViewById(R.id.ProfileFragment_LinearLayout_NetworkFailed);
         refreshConnection = view.findViewById(R.id.ProfileFragment_btn_refreshConnection);
         profile = view.findViewById(R.id.ProfileFragment_image_profile);
+        ediom = view.findViewById(R.id.ProfileFragment_txt_ediom);
+        ediom.setText("إن الذي ملأ اللغات محاسن جعل الجمال وسره في الضاد"+"\n"+"(الشاعر أحمد شوقي)");
         title = getActivity().findViewById(R.id.HomeActivity_TextView_title);
         title.setText(getActivity().getString(R.string.nav_profile));
 

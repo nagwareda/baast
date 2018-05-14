@@ -31,6 +31,7 @@ import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
 
+
 public class HomeFragment extends BaseFragment implements View.OnClickListener, TopTenListResponseListener,
         SwipeRefreshLayout.OnRefreshListener {
 
@@ -38,7 +39,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private TopTenListAdapter adapter;
     private ArrayList<TopTenResponse.TopTenModel> topTenStudentsList = new ArrayList<>();
     private SwipeRefreshLayout refreshStudentList;
-    private TextView noStudents, title;
+    private TextView noStudents, title,ediomFirsr,ediomSecond;
     private LinearLayout networkFailedLinearLayout, btnLinear, txtLinear;
     private Button refreshConnection, serialBtn, schoolClassBtn, emlaaRuleBtn;
     private SharedPref sharedPref;
@@ -83,6 +84,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         emla2Linear = view.findViewById(R.id.HomeFragment_linear_emlaa);
         classLinear = view.findViewById(R.id.HomeFragment_linear_class);
         loading = view.findViewById(R.id.TopTenFragment_RotateLoading_loading);
+        ediomFirsr = view.findViewById(R.id.FragmentHome_ediom_first);
+        ediomFirsr.setText("النحوُ أفضَلُ مَا يُقرا وَيقتبَسُ"+"\t"+"لِأنَّهُ لِكِتَابِ اللّه يُلتَمَسُ");
+
+        ediomSecond = view.findViewById(R.id.FragmentHome_ediom_second);
+        ediomSecond.setText("إذَا الفَتَى عَرَفَ الإعرَابَ كَانَ لَهُ"+"\t"+"مَهَابَةٌ لِأُناسٍ حَولَهُ جَلَسُوا");
 
         initCategoryList();
 
