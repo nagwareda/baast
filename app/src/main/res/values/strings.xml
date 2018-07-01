@@ -124,7 +124,7 @@
     <string name="loading">loading</string>
     <string name="no_quiz">No Quiz Available</string>
     <string name="enter_your_message">Enter your Message...</string>
-    <string name="contact_us">Contact Us</string>
+    <string name="contact_us">Contact us</string>
     <string name="send">Send</string>
     <string name="about_app">About Bsatahalk !!</string>
     <string name="about_app_title">About Bsatahalk</string>
@@ -136,11 +136,11 @@
     <string name="solve_e3rab_question_descreption">سؤال الإعراب مكون من خانتين: الخانة الأولى للإعراب فقط, و الخانة الثانية للعلامة الإعرابية</string>
     <string name="for_example">على سبيل المثال</string>
     <string name="top_student">Top Student</string>
-    <string name="All_questions">جميع الاسئله</string>
-    <string name="No_Question">لا يوجد اسئله</string>
-    <string name="nav_Quesiotn">جميع الاسئلة</string>
-    <string name="answer">اجابه الاستاذ</string>
-    <string name="answer_teacher">رد الاستاذ</string>
+    <string name="All_questions">All questions</string>
+    <string name="No_Question">no question</string>
+    <string name="nav_Quesiotn">All questions</string>
+    <string name="answer">Teacher Answer</string>
+    <string name="answer_teacher">Teacher Response</string>
 
     <string name="grammer">Grammer</string>
     <string name="close">Close</string>
@@ -168,6 +168,8 @@
     <string name="app_description">بسطتهالك واحد من أفضل تطبيقات تعلم اللغة العربية, التطبيق خصص لمن يجد صعوبة في تعلماللغة العربية و خصوصا غير الناطقين بها فهو يسهل عليك تعلم الحروف الأبجديةوالهجائية و الإملاء و قواعد اللغة العربية بطريقة سهلةومبسطه, وذلك من خلال توفير الفيديوهات و التي ستجعلك تشعر أنك أمام معلمك تتفاعل معه و يتفاعل معك تسأله و يجيب... </string>
     <string name="app_description1"> وبعد الإنتهاء من الشرح ستجد الإمتحانات المدعمة بطريقة الإجابة عليها لتسهلعليك تماما ماستفعله, و هذا لتقيس المستوى الذي وصلت اليه باستمرارو تعلم ماهي نقاط ضعفك في اللغة و تقويها من خلال فيديوهات الشرح</string>
     <string name="start">Start</string>
-
+    <string name="courses_and_first">lessons and top ten</string>
+    <string name="how_us">how are us</string>
+    <string name="waiting_teacher_ans">Waiting teacher answer ...</string>
 
 </resources>

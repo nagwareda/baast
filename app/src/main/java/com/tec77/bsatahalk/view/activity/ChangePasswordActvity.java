@@ -1,4 +1,4 @@
-package com.tec77.bsatahalk.view;
+package com.tec77.bsatahalk.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;

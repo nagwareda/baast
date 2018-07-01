@@ -168,6 +168,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/medium_margin"
        android:paddingHorizontal="@dimen/medium_padding"
+        android:layout_gravity="center_horizontal"
         android:background="@color/colorPrimary"
         android:text="@string/save"
         android:textAllCaps="false"

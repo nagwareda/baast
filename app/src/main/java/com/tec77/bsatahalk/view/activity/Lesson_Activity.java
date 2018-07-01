@@ -36,7 +36,7 @@ import static com.tec77.bsatahalk.utils.Const.YOUTUBE_API_KEY;
 
 //TODO:arabic item xml
 public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener,
-        View.OnClickListener,LessonRateResponseListener {
+        View.OnClickListener, LessonRateResponseListener {
 
     private static final int RECOVERY_REQUEST = 1;
     private YouTubePlayerView youTubeView;
@@ -45,14 +45,15 @@ public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlaye
     private YouTubePlayer youTubePlayer1;
     private Toolbar toolbar;
     private SerialListResponse.LessonPartModel lesson;
-    private TextView title,lessonTitle;
-    private LinearLayout underStandLinear,notUnderStandLinear,underStandLinearClicked,notUnderStandLinearClicked;
+    private TextView title, lessonTitle;
+    private LinearLayout underStandLinear, notUnderStandLinear, underStandLinearClicked, notUnderStandLinearClicked;
     private SharedPref pref;
-    private Button  shareOnFbBtn, startQuizBtn, haveQuestionBtn;
+    private Button shareOnFbBtn, startQuizBtn, haveQuestionBtn;
     private CallbackManager callbackManager;
     private LoginManager manager;
     private ShareDialog shareDialog;
-    private ImageView  backImg;
+    private ImageView backImg;
+    private String [] stringYoutubeUrlArray;
 
 
     @Override
@@ -117,15 +118,15 @@ public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlaye
             handelFbShare();
         } else if (view.getId() == startQuizBtn.getId()) {
             Const.staticQuestionMarkTxtList.clear();
-            Intent intent = new Intent(Lesson_Activity.this,QuizActivity2.class);
-            intent.putExtra("lessonId",lesson.getId());
+            Intent intent = new Intent(Lesson_Activity.this, QuizActivity2.class);
+            intent.putExtra("lessonId", lesson.getId());
             startActivity(intent);
-        } else if(view.getId() == haveQuestionBtn.getId()){
-            Intent intent = new Intent(Lesson_Activity.this,LessonQuestionActivity.class);
+        } else if (view.getId() == haveQuestionBtn.getId()) {
+            Intent intent = new Intent(Lesson_Activity.this, LessonQuestionActivity.class);
 //            intent.putExtra("from","contactUs");
-            intent.putExtra("lessonName",lesson.getName());
+            intent.putExtra("lessonName", lesson.getName());
             startActivity(intent);
-        }else if (view.getId() == backImg.getId())
+        } else if (view.getId() == backImg.getId())
             onBackPressed();
     }
 
@@ -140,6 +141,9 @@ public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlaye
     @Override
     protected void onResume() {
         super.onResume();
+        if (youTubePlayer1 != null)
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                youTubePlayer1.setFullscreen(false);
         youTubeView.initialize(YOUTUBE_API_KEY, this);
     }
 
@@ -205,19 +209,18 @@ public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlaye
         body.setStudentId(pref.getInt("id"));
         body.setDegree(lessonRate);
         if (CheckConnection.getInstance().checkInternetConnection(this))
-            new FastNetworkManger(this).addRate(body,this);
+            new FastNetworkManger(this).addRate(body, this);
         else
             Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void responseLessonRate(boolean responseRate) {
-        if(responseRate){
+        if (responseRate) {
             //notUnderstand.setVisibility(View.GONE);
             underStandLinear.setVisibility(View.GONE);
             underStandLinearClicked.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             notUnderStandLinear.setVisibility(View.GONE);
             notUnderStandLinearClicked.setVisibility(View.VISIBLE);
         }
@@ -229,9 +232,12 @@ public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlaye
         youTubePlayer1 = youTubePlayer;
         youTubePlayer.setPlayerStateChangeListener(playerStateChangeListener);
         youTubePlayer.setPlaybackEventListener(playbackEventListener);
+        //youTubePlayer.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_ALWAYS_FULLSCREEN_IN_LANDSCAPE | youTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION);
+
         if (!b) {
-            youTubePlayer.cueVideo(lesson.getUrl()); // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
-            // youTubePlayer.cueVideo("fhWaJi1Hsfo");
+            stringYoutubeUrlArray = lesson.getUrl().split("&");
+//            youTubePlayer.cueVideo(lesson.getUrl()); // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
+             youTubePlayer.cueVideo(stringYoutubeUrlArray[0]);
         }
 
     }
@@ -308,12 +314,16 @@ public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlaye
 
         @Override
         public void onPaused() {
+//            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+//                youTubePlayer1.setFullscreen(false);
             // Called when playback is paused, either due to user action or call to pause().
             showMessage("Paused");
         }
 
         @Override
         public void onStopped() {
+//            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+//                youTubePlayer1.setFullscreen(false);
             // Called when playback stops for a reason other than being paused.
             showMessage("Stopped");
         }

@@ -139,7 +139,7 @@
 
                     <LinearLayout
                         android:id="@+id/LessonActivity_linear_understand"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
                         android:gravity="start"
@@ -236,7 +236,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/tiny_margin"
-                            android:gravity="end"
                             android:text="@string/not_understand"
                             android:textColor="@color/blackColorLight" />
 
@@ -264,10 +263,9 @@
                             android:src="@drawable/dislike_hand_clicked" />
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/tiny_margin"
-                            android:gravity="end"
                             android:text="@string/not_understand"
                             android:textColor="@color/blackColorLight" />
 

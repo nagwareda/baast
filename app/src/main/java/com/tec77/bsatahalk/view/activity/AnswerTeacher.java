@@ -56,7 +56,7 @@ public class AnswerTeacher extends BaseActivity implements AnswerQuestionListner
            full+=answer.get(i).getAnswer()+"\n";
        }
        if(full.isEmpty()){
-           full="بانتظار رد الاستاذ...";
+           full=getResources().getString(R.string.waiting_teacher_ans);
        }
         this.answer.setText(full);
     }

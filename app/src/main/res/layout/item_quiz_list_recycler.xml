@@ -24,7 +24,7 @@
             android:id="@+id/ItemQuizList_textView_quizNo"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/small_margin"
             android:layout_marginRight="@dimen/small_margin"

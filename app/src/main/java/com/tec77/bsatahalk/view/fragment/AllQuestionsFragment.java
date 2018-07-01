@@ -97,6 +97,7 @@ public class AllQuestionsFragment extends Fragment implements AllQuestionsListne
         if (CheckConnection.getInstance().checkInternetConnection(getActivity())) {
             networkFailedLinearLayout.setVisibility(View.GONE);
             noQestionsTxt.setVisibility(View.GONE);
+            loading.setVisibility(View.VISIBLE);
             questionsBtnRecycler.setVisibility(View.VISIBLE);
            // loading.setVisibility(View.VISIBLE);
             new FastNetworkManger(getActivity()).getAllQuestions(loading, page, this);
@@ -127,6 +128,7 @@ public class AllQuestionsFragment extends Fragment implements AllQuestionsListne
     public void onRefresh() {
         page = 1;
         mMaxPage = -1;
+
        callAllQuestionsApi();
         refresh.setRefreshing(false);
     }

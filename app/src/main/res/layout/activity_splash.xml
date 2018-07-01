@@ -6,54 +6,23 @@
     android:orientation="vertical"
     tools:context="com.tec77.bsatahalk.view.activity.SplashActivity">
 
-    <ScrollView
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:padding="@dimen/large_padding"
-                android:src="@drawable/logo_" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/small_margin"
-                android:layout_marginRight="@dimen/small_margin"
-                android:paddingLeft="@dimen/small_padding"
-                android:paddingRight="@dimen/small_padding"
-                android:paddingTop="@dimen/small_padding"
-                android:text="@string/app_description" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/small_margin"
-                android:layout_marginRight="@dimen/small_margin"
-                android:paddingLeft="@dimen/small_padding"
-                android:paddingRight="@dimen/small_padding"
-                android:text="@string/app_description1" />
-
-            <Button
-                android:id="@+id/SplashActivity_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="100dp"
-                android:layout_marginTop="@dimen/xx_large_margin"
-                android:text="@string/start"
-                android:textAllCaps="false"
-                android:textColor="@color/whiteColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/medium_text_size"
-                android:background="@color/colorPrimary" />
-        </LinearLayout>
-    </ScrollView>
+    <TextView
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/medium_padding"
+        android:text="@string/start"
+        android:textSize="@dimen/medium_text_size"
+        android:textColor="@color/blackColorLight"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        />
 </LinearLayout>

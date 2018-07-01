@@ -6,7 +6,8 @@
     <color name="colorAccent">#E6B41F</color>
     <color name="whiteColor">#ffff</color>
     <color name="blackColor">#454545</color>
-    <color name="blackColorLight">#68000000</color>
+    <color name="blackColorLight">#555555</color>
+    <color name="blackColorLighttt">#68000000</color>
     <color name="gray">#8b7e7e7e</color>
     <color name="gray_light">#587e7e7e</color>
     <color name="blackColorSemiLight">#9e000000</color>

@@ -50,16 +50,16 @@ public class TopTenListAdapter extends RecyclerView.Adapter<TopTenListAdapter.Vi
         holder.studentScore.setText(student.getDegree() + "");
         holder.quizzNumberTxt.setText(student.getQuizNumber() + "");
         if (!student.getUser_image().isEmpty())
-            Glide.with(context)
-                    .load(student.getUser_image())
-                    .into(holder.studentImg);
-//            Picasso.with(context)
+//            Glide.with(context)
 //                    .load(student.getUser_image())
-//                    .placeholder(R.drawable.fake_profile)
-//                    .error(R.drawable.fake_profile)
-//                    .centerCrop()
-//                    .fit()
 //                    .into(holder.studentImg);
+            Picasso.with(context)
+                    .load(student.getUser_image())
+                    .placeholder(R.drawable.fake_profile)
+                    .error(R.drawable.fake_profile)
+                    .centerCrop()
+                    .fit()
+                    .into(holder.studentImg);
 
     }
 

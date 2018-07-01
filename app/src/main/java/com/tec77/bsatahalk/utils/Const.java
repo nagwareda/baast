@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 
 public class Const {
-    public final static String HOST = "https://basstnhalk-site.000webhostapp.com/api/v1/";
+    public final static String HOST = "http://bassthalk.com/api/v1/";
     public final static String YOUTUBE_API_KEY ="AIzaSyAbnnPCAI9DbAfUQbX9Hiixq76yPaVjmto";
     public final static String CLASS_LIST_RESPONSE_high ="ثانوي";
     public final static String CLASS_LIST_RESPONSE_intermediate ="اعدادي";

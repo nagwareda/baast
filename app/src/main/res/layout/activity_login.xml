@@ -168,6 +168,7 @@
                 android:paddingTop="@dimen/small_padding"
                 android:paddingBottom="@dimen/small_padding"
                 android:layout_marginTop="@dimen/small_margin"
+                android:layout_gravity="bottom|end"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -175,6 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="@string/do_not_have_account"
                     android:textColor="@color/gray"
                     android:textSize="18sp" />
@@ -184,6 +186,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/newUser"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/blackColor"
                     android:textStyle="bold"
                     android:textSize="18sp" />

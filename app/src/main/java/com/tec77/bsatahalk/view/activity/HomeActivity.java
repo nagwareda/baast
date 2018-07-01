@@ -368,7 +368,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
                         LoginManager.getInstance().logOut();
                         editor.clear();
                         editor.apply();
-                        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), splashSliderActivity.class);
                         startActivity(intent);
 
                     }

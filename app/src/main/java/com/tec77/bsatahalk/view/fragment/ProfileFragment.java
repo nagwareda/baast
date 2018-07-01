@@ -11,14 +11,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.tec77.bsatahalk.R;
 import com.tec77.bsatahalk.api.FastNetworkManger;
 import com.tec77.bsatahalk.api.response.PartModelStudent;
 import com.tec77.bsatahalk.database.SharedPref;
 import com.tec77.bsatahalk.listener.ProfileResponseListener;
 import com.tec77.bsatahalk.utils.CheckConnection;
-import com.tec77.bsatahalk.view.ChangePasswordActvity;
+import com.tec77.bsatahalk.view.activity.ChangePasswordActvity;
 import com.tec77.bsatahalk.view.activity.EditProfileActivity;
 
 
@@ -89,9 +89,15 @@ public class ProfileFragment extends Fragment implements ProfileResponseListener
         totlaDgreeTxt.setText("" + responseProfile.getTotalDegree() + "");
 
         if (!responseProfile.getUser_image().isEmpty())
-            Glide.with(getActivity())
+            Picasso.with(getActivity())
                     .load(responseProfile.getUser_image())
+                    .placeholder(R.drawable.fake_profile)
+                    .error(R.color.blackColor)
+                    .centerCrop().fit()
                     .into(profile);
+//            Glide.with(getActivity())
+//                    .load(responseProfile.getUser_image())
+//                    .into(profile);
 
         if (SharedPref.getInstance(getActivity()).getBoolean("otherLogin")) {
             forgetPassBtn.setVisibility(View.GONE);

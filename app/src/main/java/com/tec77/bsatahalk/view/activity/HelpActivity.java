@@ -63,7 +63,7 @@ public class HelpActivity extends YouTubeBaseActivity implements YouTubePlayer.O
         categoryList.add(new MainCategoryRecyclerModel( R.drawable.earaab, getString(R.string.serial)));
         categoryList.add(new MainCategoryRecyclerModel( R.drawable.emlaa, getString(R.string.emlaa_grammer)));
         categoryList.add(new MainCategoryRecyclerModel( R.drawable.classes, getString(R.string.classes_title)));
-        categoryList.add(new MainCategoryRecyclerModel( R.drawable.top_ten, getString(R.string.topTen)));
+        categoryList.add(new MainCategoryRecyclerModel( R.drawable.top_ten_splash, getString(R.string.topTen)));
         initCategoryListAdapter();
 
     }

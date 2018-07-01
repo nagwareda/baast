@@ -1,6 +1,7 @@
 package com.tec77.bsatahalk.view.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -51,7 +52,7 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
         ResponseChooseQuestionListener {
 
     private RecyclerView e3rabRecycler, est5ragRecycler, chooseRecycler;
-    private TextView e3rabTxt, est5ragTxt, totalMarkTxt, howSolveE3rabTxt, quizNoTxt;
+    private TextView totalMarkTxt, howSolveE3rabTxt, quizNoTxt;
     private ImageView questionImg;
     private FrameLayout est5ragFrame, e3rabFrame, chooseFrame;
     private Button checkBtn;
@@ -63,7 +64,7 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
     private ItemEst5ragListAdapter est5ragAdapter;
     private ItemChooseRecyclerAdapter chooseAdapter;
     private String imgUrl;
-    private int questionId;
+    private int questionId ,qTotalMark;
     private float finalResult;
     private HashMap<String, Float> questionsResultList = new HashMap<>();
     private LinearLayout questionTotalMarkLinear;
@@ -96,8 +97,6 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
         est5ragRecycler = findViewById(R.id.OneQuestion_Recycler_Est5rag);
         chooseRecycler = findViewById(R.id.OneQuestion_Recycler_choose);
         chooseFrame = findViewById(R.id.OneQuestion_frameLayout_choose);
-        e3rabTxt = findViewById(R.id.OneQuestion_TextView_questionTypeE3raab);
-        est5ragTxt = findViewById(R.id.OneQuestion_TextView_questionTypeEst5rag);
         totalMarkTxt = findViewById(R.id.OneQuestion_txt_totalDegreeTxt);
         questionTotalMarkLinear = findViewById(R.id.OneQuestion_LinearLayout_totalQuestionMark);
         checkBtn = findViewById(R.id.OneQuestion_btn_check);
@@ -165,9 +164,15 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
 
     private void putDataInView() {
         if (!imgUrl.isEmpty())
-            Glide.with(this)
+            Picasso.with(this)
                     .load(imgUrl)
+                    .placeholder(R.drawable.defult_img)
+                    .error(R.color.blackColor)
+
                     .into(questionImg);
+//            Glide.with(this)
+//                    .load(imgUrl)
+//                    .into(questionImg);
 
         if (!e3rabList.isEmpty()) {
             e3rabFrame.setVisibility(View.VISIBLE);
@@ -235,9 +240,14 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
 
         } else if (view.getId() == questionImg.getId()) {
             if (imgUrl != null) {
-                QuestionImgDialog dialog = new QuestionImgDialog(imgUrl);
-                //dialog.getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
-                dialog.show(getSupportFragmentManager(), "questionImage");
+
+                Intent intent = new Intent(OneQuestionActivity.this,ImageActivity.class);
+                intent.putExtra("imgUrl",imgUrl);
+                startActivity(intent);
+
+//                QuestionImgDialog dialog = new QuestionImgDialog(imgUrl);
+//                //dialog.getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+//                dialog.show(getSupportFragmentManager(), "questionImage");
             }
         } else if (view.getId() == howSolveE3rabTxt.getId()) {
             SolveE3rabQuestionDialog dialog = new SolveE3rabQuestionDialog();
@@ -331,7 +341,7 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
     private void afterResultCalculation() {
         checkBtn.setVisibility(View.GONE);
         questionTotalMarkLinear.setVisibility(View.VISIBLE);
-        totalMarkTxt.setText(finalResult + "");
+        totalMarkTxt.setText((int)finalResult + "/"+qTotalMark);
     }
 
     @Override
@@ -399,6 +409,8 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void chooseQuestionList(ArrayList<ResponseChooseQuestion.ItemChooseQuestion> chooseQList) {
+        qTotalMark = chooseQList.size()+ e3rabList.size()+ est5ragList.size();
+        totalMarkTxt.setText("/"+qTotalMark);
         chooseList.clear();
         chooseList.addAll(chooseQList);
         putDataInView();

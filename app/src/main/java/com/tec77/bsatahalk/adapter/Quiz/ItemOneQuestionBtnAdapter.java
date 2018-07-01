@@ -52,6 +52,7 @@ public class ItemOneQuestionBtnAdapter extends RecyclerView.Adapter<ItemOneQuest
         holder.emptyViewHolder();
         holder.questionNameTxt.setText(context.getString(R.string.quize_title) + " " + (position + 1));
         if(quizList.get(position).isTakeQuedtion()){
+            //int totalMark = quizList.get(position).getQuizQuestions().
             holder.questionNameTxt.setTextColor(context.getResources().getColor(R.color.gray));
         if(quizList.get(position).getDegree() != -1)
         holder.questionMarkTxt.setText(quizList.get(position).getDegree()+"");}

@@ -29,6 +29,7 @@ import com.tec77.bsatahalk.api.response.Quiz.QuizResponse;
 import com.tec77.bsatahalk.api.response.ResponseAllQuestion;
 import com.tec77.bsatahalk.api.response.ResponseChooseQuestion;
 import com.tec77.bsatahalk.api.response.ResponseGetAnswer;
+import com.tec77.bsatahalk.api.response.ResponseHomeVideo;
 import com.tec77.bsatahalk.api.response.ResponseLessonConclusion;
 import com.tec77.bsatahalk.api.response.SchoolClassesResponse;
 import com.tec77.bsatahalk.api.response.SerialListResponse;
@@ -44,12 +45,14 @@ import com.tec77.bsatahalk.listener.ProfileResponseListener;
 import com.tec77.bsatahalk.listener.PushFireBaseTokenRequestListener;
 import com.tec77.bsatahalk.listener.QuizDegreeResponseListener;
 import com.tec77.bsatahalk.listener.ResponseChooseQuestionListener;
+import com.tec77.bsatahalk.listener.ResponseHomeVideoListener;
 import com.tec77.bsatahalk.listener.SchoolClassResponseListener;
 import com.tec77.bsatahalk.listener.SerialListResponseListener;
 import com.tec77.bsatahalk.listener.TopTenListResponseListener;
 import com.tec77.bsatahalk.view.activity.HomeActivity;
 import com.tec77.bsatahalk.view.activity.LoginActivity;
 import com.tec77.bsatahalk.view.activity.SplashActivity;
+import com.tec77.bsatahalk.view.activity.splashSliderActivity;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.concurrent.TimeUnit;
@@ -580,7 +583,7 @@ public class FastNetworkManger {
     private void jumpToLogin() {
         sharedPref.setLoggedin(false);
         LoginManager.getInstance().logOut();
-        Intent intent = new Intent(context, SplashActivity.class);
+        Intent intent = new Intent(context, splashSliderActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
     }
@@ -807,5 +810,42 @@ public class FastNetworkManger {
                 });
 
     }
+
+    public void getHomeVideoContent(final ResponseHomeVideoListener callBack,
+                                    final RotateLoading loading) {
+        final ProgressDialog dialog;
+        dialog = new ProgressDialog(context);
+        String pleaseWait = context.getString(R.string.Dialog_please_wait);
+        dialog.setMessage(pleaseWait);
+        dialog.show();
+        dialog.setCancelable(false);
+        String url = HOST + "getProgram";
+        AndroidNetworking.get(url)
+                .setPriority(Priority.MEDIUM)
+                .setOkHttpClient(okHttpClient)
+                .addHeaders("Authorization", sharedPref.getString("token"))
+                .build()
+                .getAsObject(ResponseHomeVideo.class, new ParsedRequestListener<ResponseHomeVideo>() {
+                    @Override
+                    public void onResponse(ResponseHomeVideo response) {
+                        if (response.isSuccess()) {
+                            callBack.videoContent(response.getProgram().getVideoText(),response.getProgram().getVideoUrl());
+                            dialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorBody() != null && anError.getErrorBody().contains("token_expired")) {
+                            jumpToLogin();
+                        } else
+                            Toast.makeText(context, context.getString(R.string.timeOut), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+
+                    }
+                });
+
+    }
+
 }
 

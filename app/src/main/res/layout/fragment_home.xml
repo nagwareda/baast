@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:orientation="vertical">
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@drawable/home_header"></LinearLayout>
-<android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/TopTenFragment_SwipeRefreshLayout_refresh"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -25,7 +22,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/TopTenFragment_LinearLayout_NetworkFailed"
+                android:id="@+id/HomeFragment_LinearLayout_NetworkFailed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -45,7 +42,7 @@
                     android:textColor="@color/colorAccent" />
 
                 <Button
-                    android:id="@+id/TopTenFragment_btn_refreshConnection"
+                    android:id="@+id/HomeFragment_btn_refreshConnection"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:layout_gravity="center"
@@ -57,30 +54,30 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TopTenFragment_linear_btns"
+                android:id="@+id/HomeFragment_linear_btns"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_margin="@dimen/medium_margin"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <Button
-                    android:id="@+id/TopTenFragment_Btn_serial"
+                    android:id="@+id/HomeFragment_Btn_serial"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/small_margin"
                     android:layout_weight="1"
                     android:background="@drawable/btn_login_shape"
                     android:text="@string/serial"
-                    android:visibility="gone"
                     android:textAllCaps="false"
                     android:textColor="@color/whiteColor"
                     android:textSize="@dimen/medium_text_size"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <Button
-                    android:id="@+id/TopTenFragment_Btn_classes"
+                    android:id="@+id/HomeFragment_Btn_classes"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/small_margin"
@@ -88,294 +85,279 @@
                     android:background="@drawable/btn_login_shape"
                     android:text="@string/school_classes"
                     android:textAllCaps="false"
-                    android:visibility="gone"
                     android:textColor="@color/whiteColor"
                     android:textSize="@dimen/medium_text_size"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <Button
-                    android:id="@+id/TopTenFragment_Btn_emlaa"
+                    android:id="@+id/HomeFragment_Btn_emlaa"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/small_margin"
                     android:layout_weight="1"
                     android:background="@drawable/btn_login_shape"
                     android:text="@string/emlaa_grammer"
-                    android:visibility="gone"
                     android:textAllCaps="false"
                     android:textColor="@color/whiteColor"
                     android:textSize="@dimen/medium_text_size"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
             </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="@dimen/tiny_margin"
-                android:layout_marginRight="@dimen/tiny_margin"
-                android:layout_marginTop="@dimen/tiny_margin"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/gray_light" />
-
-                <TextView
-                    android:id="@+id/AboutUs_TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/tiny_margin"
-                    android:layout_marginLeft="@dimen/tiny_margin"
-                    android:text="@string/nav_aboutUs"
-                    android:textColor="@color/blackColor"
-                    android:textSize="@dimen/medium_text_size"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/gray_light" />
-
-            </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
-    <TextView
-        android:id="@+id/FragmentHome_ediom_first"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/small_padding"
-        android:gravity="center"
-       android:maxLines="1"
-        android:textColor="@color/blackColorLight" />
-    <TextView
-        android:id="@+id/FragmentHome_ediom_second"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/small_padding"
-        android:gravity="center"
-        android:layout_marginBottom="@dimen/small_margin"
-        android:textColor="@color/blackColorLight" />
-</LinearLayout>
-
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/tiny_margin"
-                android:layout_marginRight="@dimen/tiny_margin"
-                android:background="@color/gray_light" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/AboutUs_recycler_mainTopic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
-
-            </android.support.v7.widget.RecyclerView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:id="@+id/HomeFragment_linear_e3raab"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_margin="@dimen/tiny_margin"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="@dimen/small_margin"
-                        android:layout_marginTop="@dimen/small_margin"
-                        android:layout_marginLeft="@dimen/tiny_margin"
-                        android:layout_marginRight="@dimen/tiny_margin"
-                        android:src="@drawable/earaab"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="@dimen/tiny_padding"
-                        android:text="@string/serial"
-                        android:textColor="@color/blackColor" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/HomeFragment_linear_emlaa"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_margin="@dimen/tiny_margin"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="@dimen/small_margin"
-                        android:layout_marginTop="@dimen/small_margin"
-                        android:layout_marginLeft="@dimen/tiny_margin"
-                        android:layout_marginRight="@dimen/tiny_margin"
-                        android:src="@drawable/emlaa"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="@dimen/tiny_padding"
-                        android:text="@string/emlaa_grammer"
-                        android:textColor="@color/blackColor" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/HomeFragment_linear_class"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_margin="@dimen/tiny_margin"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="@dimen/small_margin"
-                        android:layout_marginTop="@dimen/small_margin"
-                        android:layout_marginLeft="@dimen/tiny_margin"
-                        android:layout_marginRight="@dimen/tiny_margin"
-                        android:src="@drawable/classes"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="@dimen/tiny_padding"
-                        android:text="@string/classes_title"
-                        android:textColor="@color/blackColor" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-            <LinearLayout
-                android:id="@+id/TopTenFragment_linear_txts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_margin="@dimen/small_margin"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/TopTenFragment_TextView_chatList"
+                    android:id="@+id/HomeFragment_AboutUs_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:text="@string/top_ten_list"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/x_large_text_size"
+                    android:layout_marginLeft="@dimen/tiny_margin"
+                    android:layout_marginRight="@dimen/tiny_margin"
+                    android:text="@string/how_us"
+                    android:textColor="@color/blackColor"
+                    android:textSize="@dimen/medium_text_size"
                     android:textStyle="bold"
                     android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/tiny_margin"
+                    android:layout_marginRight="@dimen/tiny_margin"
+                    android:background="@drawable/rectange_shape_txtview"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/HomeFragment_ediom_first"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:padding="@dimen/small_padding"
+                        android:textColor="@color/blackColor" />
+
+                    <TextView
+                        android:id="@+id/HomeFragment_ediom_second"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/small_margin"
+                        android:maxLines="1"
+                        android:gravity="center"
+                        android:padding="@dimen/small_padding"
+                        android:textColor="@color/blackColor" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/tiny_margin"
+                    android:layout_marginRight="@dimen/tiny_margin"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:background="@color/gray_light" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/tiny_margin"
                     android:layout_marginRight="@dimen/tiny_margin"
                     android:layout_marginTop="@dimen/tiny_margin"
-                    android:orientation="horizontal">
+                    android:text="@string/courses_and_first"
+                    android:textColor="@color/blackColor"
+                    android:textSize="@dimen/medium_text_size"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/tiny_margin"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <ImageView
+                            android:id="@+id/HomeFragment_linear_e3raab"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/small_margin"
+                            android:layout_marginLeft="@dimen/tiny_margin"
+                            android:layout_marginRight="@dimen/tiny_margin"
+                            android:layout_marginTop="@dimen/small_margin"
+                            android:layout_weight="1"
+                            android:src="@drawable/earaab" />
+
+                        <ImageView
+                            android:id="@+id/HomeFragment_linear_emlaa"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/small_margin"
+                            android:layout_marginLeft="@dimen/tiny_margin"
+                            android:layout_marginRight="@dimen/tiny_margin"
+                            android:layout_marginTop="@dimen/small_margin"
+                            android:layout_weight="1"
+                            android:src="@drawable/emlaa" />
+
+                        <ImageView
+                            android:id="@+id/HomeFragment_linear_class"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/small_margin"
+                            android:layout_marginLeft="@dimen/tiny_margin"
+                            android:layout_marginRight="@dimen/tiny_margin"
+                            android:layout_marginTop="@dimen/small_margin"
+                            android:layout_weight="1"
+                            android:src="@drawable/classes" />
+
+                        <ImageView
+                            android:id="@+id/HomeFragment_linear_topTen"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/small_margin"
+                            android:layout_marginLeft="@dimen/tiny_margin"
+                            android:layout_marginRight="@dimen/tiny_margin"
+                            android:layout_marginTop="@dimen/small_margin"
+                            android:layout_weight="1"
+                            android:src="@drawable/top_ten" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="@dimen/tiny_padding"
+                            android:text="@string/serial"
+                            android:textColor="@color/blackColor" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="@dimen/tiny_padding"
+                            android:text="@string/emlaa_grammer"
+                            android:textColor="@color/blackColor" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="@dimen/tiny_padding"
+                            android:text="@string/classes_title"
+                            android:textColor="@color/blackColor" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="@dimen/tiny_padding"
+                            android:text="@string/topTen"
+                            android:textColor="@color/blackColor" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/tiny_margin"
+                    android:layout_marginRight="@dimen/tiny_margin"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
                     <View
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_weight="1"
                         android:background="@color/gray_light" />
 
                     <TextView
-                        android:id="@+id/TopTenFragment_TextView_topTenTxt"
+                        android:id="@+id/HomeFragment_TextView_videoTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/tiny_margin"
                         android:layout_marginLeft="@dimen/tiny_margin"
-                        android:text="@string/topTen"
+                        android:layout_marginRight="@dimen/tiny_margin"
+                        android:layout_marginTop="@dimen/tiny_margin"
                         android:textColor="@color/blackColor"
                         android:textSize="@dimen/medium_text_size"
                         android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1"
-                        android:background="@color/gray_light" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorAccent">
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/tiny_padding">
+
+                                <FrameLayout
+                                    android:id="@+id/youtube_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:visibility="visible" />
+
+                                <com.victor.loading.rotate.RotateLoading
+                                    android:id="@+id/HomeFragment_RotateLoading_loading"
+                                    app:loading_color="@color/colorPrimary"
+                                    app:loading_width="2dp"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:visibility="gone"
+                                    android:layout_centerInParent="true"
+                                    android:layout_gravity="center" />
+                            </FrameLayout>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/tiny_padding"
+                            android:visibility="visible"
+                            android:src="@drawable/reader" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <FrameLayout
-                    android:id="@+id/TopTenFragment_frameLayout_contnent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/TopTenFragment_TextView_noStudent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/large_margin"
-                        android:background="@drawable/rounded_shape_txtview"
-                        android:gravity="center"
-                        android:padding="@dimen/large_padding"
-                        android:text="@string/no_student"
-                        android:visibility="gone" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/TopTenFragment_RecyclerView_topTenStudents"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <com.victor.loading.rotate.RotateLoading
-                        android:id="@+id/TopTenFragment_RotateLoading_loading"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/tiny_margin"
-                        app:loading_color="@color/colorPrimary"
-                        app:loading_width="2dp" />
-
-                </FrameLayout>
-
-
             </LinearLayout>
-
         </LinearLayout>
-
     </android.support.v4.widget.NestedScrollView>
 
-</android.support.v4.widget.SwipeRefreshLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:background="@drawable/footer"></LinearLayout>
+
 </LinearLayout>
