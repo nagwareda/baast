@@ -51,11 +51,16 @@ public class ItemOneQuestionBtnAdapter extends RecyclerView.Adapter<ItemOneQuest
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.emptyViewHolder();
         holder.questionNameTxt.setText(context.getString(R.string.quize_title) + " " + (position + 1));
-        if(quizList.get(position).isTakeQuedtion()){
+        if (quizList.get(position).isTakeQuedtion()) {
             //int totalMark = quizList.get(position).getQuizQuestions().
             holder.questionNameTxt.setTextColor(context.getResources().getColor(R.color.gray));
-        if(quizList.get(position).getDegree() != -1)
-        holder.questionMarkTxt.setText(quizList.get(position).getDegree()+"");}
+            if (quizList.get(position).getDegree() != -1) {
+                holder.questionMarkTxt.setText(quizList.get(position).getDegree() + "");
+                holder.questionMarkTxt.setTextColor(context.getResources().getColor(R.color.gray));
+            }
+        } else {
+            holder.questionMarkTxt.setText(quizList.get(position).getTotal_degree() + "");
+        }
 //        holder.answeredBtn.setText(context.getString(R.string.quize_title) + " " + (position + 1));
 //        quizId = quizList.get(position).getId();
 //        if (!questionMarkTextList.isEmpty()){
@@ -76,7 +81,7 @@ public class ItemOneQuestionBtnAdapter extends RecyclerView.Adapter<ItemOneQuest
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView questionNameTxt,solvedQuestionNameTxt,questionMarkTxt;
+        public TextView questionNameTxt, solvedQuestionNameTxt, questionMarkTxt;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -84,8 +89,8 @@ public class ItemOneQuestionBtnAdapter extends RecyclerView.Adapter<ItemOneQuest
         }
 
         private void emptyViewHolder() {
-           questionNameTxt.setText("");
-           questionMarkTxt.setText("");
+            questionNameTxt.setText("");
+            questionMarkTxt.setText("");
 
         }
 
@@ -93,7 +98,7 @@ public class ItemOneQuestionBtnAdapter extends RecyclerView.Adapter<ItemOneQuest
 
             questionNameTxt = itemView.findViewById(R.id.ItemQuizList_textView_quizNo);
             questionMarkTxt = itemView.findViewById(R.id.ItemQuizList_txt_totalDegreeTxt);
-           itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     questionsModelList = quizList.get(getAdapterPosition()).getQuizQuestions();

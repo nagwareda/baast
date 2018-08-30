@@ -58,9 +58,11 @@ public class ItemEst5ragListAnsAdapter extends RecyclerView.Adapter<ItemEst5ragL
     public void activateItemClick(boolean showItem) {
         mShowItem = showItem;
         boolean isAnsCorrect = true;
-        for (String i : Const.staticStudentAns.keySet()) {
-            isAnsCorrect = isAnsCorrect & Const.staticStudentAns.get(i);
-        }
+        for(int i=0;i<totalSize;i++)
+          isAnsCorrect = isAnsCorrect& Const.staticStudentAns.get( questionId + "_" + questionItemId + "_" + i);
+//        for (String i : Const.staticStudentAns.keySet()) {
+//            isAnsCorrect = isAnsCorrect & Const.staticStudentAns.get(i);
+//        }
         callBack.isAnsCorrect(isAnsCorrect);
     }
 
@@ -83,7 +85,7 @@ public class ItemEst5ragListAnsAdapter extends RecyclerView.Adapter<ItemEst5ragL
                 holder.ansEditTxt.setEnabled(false);
                 if (validAnswer(itemAns, ans) && ans != "") {
                     // holder.ansEditTxt.setVisibility(View.GONE);
-                    holder.ansEditTxt.setTextColor(context.getResources().getColor(R.color.green_color_Dark));
+                    //holder.ansEditTxt.setTextColor(context.getResources().getColor(R.color.green_color_Dark));
                 } else
                     holder.ansEditTxt.setTextColor(context.getResources().getColor(R.color.red_color_Dark));
             }
