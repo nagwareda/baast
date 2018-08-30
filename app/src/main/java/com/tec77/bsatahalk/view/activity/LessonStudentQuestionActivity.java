@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tec77.bsatahalk.R;
@@ -14,7 +13,7 @@ import com.tec77.bsatahalk.api.FastNetworkManger;
 import com.tec77.bsatahalk.api.request.ContactUsRequest;
 import com.tec77.bsatahalk.utils.CheckConnection;
 
-public class LessonQuestionActivity extends AppCompatActivity {
+public class LessonStudentQuestionActivity extends AppCompatActivity {
 
 
     private EditText messageTxt;
@@ -39,16 +38,16 @@ public class LessonQuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (CheckConnection.getInstance().checkInternetConnection(LessonQuestionActivity.this)) {
+                if (CheckConnection.getInstance().checkInternetConnection(LessonStudentQuestionActivity.this)) {
                     if (messageTxt.getText().toString().isEmpty())
-                        Toast.makeText(LessonQuestionActivity.this,getString(R.string.enter_your_message), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LessonStudentQuestionActivity.this,getString(R.string.enter_your_message), Toast.LENGTH_SHORT).show();
                     else {
                         ContactUsRequest request = new ContactUsRequest();
                         request.setQuestion(lessonName + messageTxt.getText().toString());
-                        new FastNetworkManger(LessonQuestionActivity.this).sendMessage(request, messageTxt);
+                        new FastNetworkManger(LessonStudentQuestionActivity.this).sendMessage(request, messageTxt);
                     }
                 } else {
-                    Toast.makeText(LessonQuestionActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LessonStudentQuestionActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                 }
 
             }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,7 +24,8 @@ public class splashSliderActivity extends BaseActivity {
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_splash_slider);
         pref = SharedPref.getInstance(this);
-        if (pref.loggeedIn()) {
+        Log.d("login",pref.loggeedIn()+"");
+        if (pref.loggeedIn()!= null && pref.loggeedIn()) {
             Intent intent = new Intent(this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
@@ -44,7 +46,6 @@ public class splashSliderActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                // TODO Auto-generated method stub
                 if (position == viewPager.getAdapter().getCount()-1) {
                     Intent intent = new Intent(splashSliderActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -54,13 +55,11 @@ public class splashSliderActivity extends BaseActivity {
 
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
-                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void onPageScrollStateChanged(int arg0) {
-                // TODO Auto-generated method stub
 
             }
         });
@@ -97,7 +96,6 @@ public class splashSliderActivity extends BaseActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             ImageView imageView = new ImageView(context);
-            // imageView.setPadding(padding, padding, padding, padding);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             if (position < getCount() - 1)

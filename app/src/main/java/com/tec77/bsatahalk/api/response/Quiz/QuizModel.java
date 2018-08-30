@@ -54,4 +54,14 @@ public class QuizModel implements Serializable{
     public ArrayList<QuestionsModel> getQuizQuestions() { return this.quiz_questions; }
 
     public void setQuizQuestions(ArrayList<QuestionsModel> quiz_questions) { this.quiz_questions = quiz_questions; }
+
+    private int total_degree;
+
+    public int getTotal_degree() {
+        return total_degree;
+    }
+
+    public void setTotal_degree(int total_degree) {
+        this.total_degree = total_degree;
+    }
 }

@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tec77.bsatahalk.R;
 import com.tec77.bsatahalk.utils.CheckConnection;
 
 public class AboutUsFragment extends BaseFragment {
 
-    ImageView hamzaLogo;
+   // ImageView hamzaLogo;
     View view;
     private Toolbar toolbar;
     private TextView title;
@@ -25,18 +26,21 @@ public class AboutUsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view =  inflater.inflate(R.layout.fragment_about_us, container, false);
+        view = inflater.inflate(R.layout.fragment_about_us, container, false);
         title = getActivity().findViewById(R.id.HomeActivity_TextView_title);
         title.setText(getActivity().getString(R.string.nav_aboutUs));
-        hamzaLogo = view.findViewById(R.id.ContactUs_img_hamza);
-        if(CheckConnection.getInstance().checkInternetConnection(getActivity()))
-        hamzaLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.hamza.solutions/"));
-                startActivity(browserIntent);
-            }
-        });
+//        hamzaLogo = view.findViewById(R.id.ContactUs_img_hamza);
+//        if (CheckConnection.getInstance().checkInternetConnection(getActivity()))
+//            hamzaLogo.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (CheckConnection.getInstance().checkInternetConnection(getActivity())) {
+//                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.hamza.solutions/"));
+//                        startActivity(browserIntent);
+//                    } else
+//                        Toast.makeText(getActivity(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+//                }
+//            });
         return view;
 
     }

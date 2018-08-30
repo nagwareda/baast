@@ -1,6 +1,7 @@
 package com.tec77.bsatahalk.api.response.Quiz;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Nagwa on 15/03/2018.
@@ -27,11 +28,16 @@ public class OneQuestionModel implements Serializable{
 
     public void setQuestionValue(String question_value) { this.question_value = question_value; }
 
-    private String answer;
+    private ArrayList<String> answer;
 
-    public String getAnswer() { return this.answer; }
 
-    public void setAnswer(String answer) { this.answer = answer; }
+    public ArrayList<String> getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(ArrayList<String> answer) {
+        this.answer = answer;
+    }
 
     private String mark_Answer;
 

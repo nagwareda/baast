@@ -30,17 +30,17 @@
         android:id="@+id/RegistrationActivity_ImageView_logo"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:padding="@dimen/large_padding"
         android:layout_gravity="center"
+        android:padding="@dimen/large_padding"
         android:src="@drawable/logo_"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="visible"
-        android:layout_margin="@dimen/medium_margin">
+        android:layout_margin="@dimen/medium_margin"
+        android:visibility="visible">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/RegistrationActivity_image_profile"
@@ -61,12 +61,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
@@ -159,21 +159,25 @@
                     android:inputType="textPassword"
                     android:textColorHint="@color/blackColor" />
             </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/RegistrationActivity_btn_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:background="@color/colorPrimary"
+                android:paddingHorizontal="@dimen/medium_padding"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/large_text_size" />
         </LinearLayout>
+
+
     </ScrollView>
 
-    <Button
-        android:id="@+id/RegistrationActivity_btn_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/medium_margin"
-       android:paddingHorizontal="@dimen/medium_padding"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/colorPrimary"
-        android:text="@string/save"
-        android:textAllCaps="false"
-        android:textColor="@color/whiteColor"
-        android:textSize="@dimen/large_text_size" />
 
 </LinearLayout>
 

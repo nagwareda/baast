@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tec77.bsatahalk.R;
-import com.tec77.bsatahalk.adapter.recycler.AllMyQuestionAdapter;
+import com.tec77.bsatahalk.adapter.AllMyQuestionAdapter;
 import com.tec77.bsatahalk.api.FastNetworkManger;
 import com.tec77.bsatahalk.listener.AllQuestionsListner;
 import com.tec77.bsatahalk.model.QuestionsModel;
@@ -121,7 +121,9 @@ public class AllQuestionsFragment extends Fragment implements AllQuestionsListne
 
     @Override
     public void onClick(View view) {
-
+        if(view.getId() == refreshConnectionBtn.getId()){
+            callAllQuestionsApi();
+        }
     }
 
     @Override

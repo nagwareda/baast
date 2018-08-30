@@ -56,7 +56,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:gravity="center"
                 android:text="مؤسس قناة بسطتهالك التعليمية"
                 android:textColor="@color/blackColor" />
@@ -93,38 +94,38 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/tiny_margin"
                         android:layout_marginRight="@dimen/tiny_margin"
-                        android:text="01112099886"
+                        android:text="mohamedsalah201037@gmail.com"
                         android:textColor="@color/blackColor" />
                 </LinearLayout>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/large_margin"
-                android:layout_marginRight="@dimen/large_margin"
-                android:layout_marginTop="@dimen/large_margin"
-                android:background="@color/gray_light" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginLeft="@dimen/large_margin"-->
+                <!--android:layout_marginRight="@dimen/large_margin"-->
+                <!--android:layout_marginTop="@dimen/large_margin"-->
+                <!--android:background="@color/gray_light" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/colorPrimary"
-                android:layout_margin="@dimen/small_margin"
-                android:text="تم التطوير بواسطة"/>
-            <ImageView
-                android:id="@+id/ContactUs_img_hamza"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:src="@drawable/hamza_logo" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:layout_margin="@dimen/small_margin"-->
+                <!--android:text="تم التطوير بواسطة"/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/ContactUs_img_hamza"-->
+                <!--android:layout_width="150dp"-->
+                <!--android:layout_height="150dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:src="@drawable/hamza_logo" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:background="@drawable/footer"
-                />
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="130dp"-->
+                <!--android:background="@drawable/footer"-->
+                <!--/>-->
 
         </LinearLayout>
     </ScrollView>

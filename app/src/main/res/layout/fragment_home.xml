@@ -137,8 +137,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:maxLines="1"
                         android:padding="@dimen/small_padding"
+                        android:textSize="12sp"
                         android:textColor="@color/blackColor" />
 
                     <TextView
@@ -146,8 +146,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/small_margin"
-                        android:maxLines="1"
                         android:gravity="center"
+                        android:textSize="12sp"
                         android:padding="@dimen/small_padding"
                         android:textColor="@color/blackColor" />
                 </LinearLayout>

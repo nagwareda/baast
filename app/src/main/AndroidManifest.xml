@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".model.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -36,19 +35,15 @@
             android:exported="true" />
 
         <activity android:name=".view.activity.RegistrationActivity" />
-        <activity android:name=".view.activity.HomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.SchoolClassActivity" />
+        <activity
+            android:name=".view.activity.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.Lesson_Activity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
         <activity android:name=".view.activity.SerialListActivity" />
         <activity android:name=".view.activity.StudentListActivity" />
-        <activity
-            android:name=".view.activity.CategoryActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".view.activity.QuizActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -72,36 +67,21 @@
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".model.MyAppWidgetProvider"
-            android:icon="@drawable/ic_action_name"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/appwidget_info" />
-        </receiver>
-
         <activity android:name=".view.activity.OneQuestionActivity" />
-        <activity android:name=".view.activity.QuizActivity1" />
         <activity android:name=".view.activity.QuizActivity2" />
-        <activity
-            android:name=".view.activity.HelpActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".view.activity.AnswerTeacher" />
-        <activity android:name=".view.activity.LessonQuestionActivity" />
+        <activity android:name=".view.activity.LessonStudentQuestionActivity" />
         <activity android:name=".view.activity.LessonConclusionActivity" />
-        <activity android:name=".view.activity.ImageActivity" />
+        <activity android:name=".view.activity.ImageDisplayActivity" />
         <activity android:name=".view.activity.EditProfileActivity" />
         <activity android:name=".view.activity.ChangePasswordActvity" />
         <activity android:name=".view.activity.LoginActivity" />
-        <activity android:name=".view.activity.SplashActivity"></activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="0c165f8bd4ab5f9f87469642f78d27007bef3af2" />
+
+
     </application>
 
 </manifest>

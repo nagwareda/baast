@@ -16,12 +16,11 @@
     <string name="phone_number">Phone Number</string>
     <string name="save">Save</string>
     <string name="toast_ensure_data">Ensure you fill all data without error</string>
-    <string name="email_not_found">Email not Found</string>
+    <string name="email_not_found">This Email not Found</string>
     <string name="enter_your_email">Please Enter Your Email</string>
     <string name="error_email">Write correct Email</string>
     <string name="error_confirm_password">Password Not Matched</string>
     <string name="Dialog_please_wait">please wait…</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fakeName">your name</string>
     <string name="nav_Home">Home</string>
     <string name="nav_profile">Profile</string>
@@ -130,7 +129,7 @@
     <string name="about_app_title">About Bsatahalk</string>
     <string name="how_use_app">How useBsatahalk</string>
     <string name="basathalk_app">Bsatahalk Application</string>
-    <string name="have_question">have question</string>
+    <string name="have_question">Have Question</string>
     <string name="how_solve_quiz">how solve earaab question</string>
     <string name="way_solve_e3rab_question">Way to Solve Earab Question</string>
     <string name="solve_e3rab_question_descreption">سؤال الإعراب مكون من خانتين: الخانة الأولى للإعراب فقط, و الخانة الثانية للعلامة الإعرابية</string>

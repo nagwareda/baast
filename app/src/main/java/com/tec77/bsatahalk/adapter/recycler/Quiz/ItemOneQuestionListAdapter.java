@@ -1,4 +1,4 @@
-package com.tec77.bsatahalk.adapter.Quiz;
+package com.tec77.bsatahalk.adapter.recycler.Quiz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +18,7 @@ import java.util.HashMap;
  * Created by Nagwa on 26/03/2018.
  */
 
-public class ItemOneQuestionBtnAdapter extends RecyclerView.Adapter<ItemOneQuestionBtnAdapter.ViewHolder> {
+public class ItemOneQuestionListAdapter extends RecyclerView.Adapter<ItemOneQuestionListAdapter.ViewHolder> {
     private Context context;
     private ArrayList<QuizModel> quizList = new ArrayList<>();
     private HashMap<Integer, String> questionMarkTextList = new HashMap<>();
@@ -27,8 +27,8 @@ public class ItemOneQuestionBtnAdapter extends RecyclerView.Adapter<ItemOneQuest
     private SelectedQuestionList callBack;
     private int quizId;
 
-    public ItemOneQuestionBtnAdapter(Context mContext, ArrayList<QuizModel> mQuiz,
-                                     HashMap<Integer, String> mQuestionMarkTextList, SelectedQuestionList selectedQuestionList) {
+    public ItemOneQuestionListAdapter(Context mContext, ArrayList<QuizModel> mQuiz,
+                                      HashMap<Integer, String> mQuestionMarkTextList, SelectedQuestionList selectedQuestionList) {
         this.context = mContext;
         this.quizList = mQuiz;
         this.questionMarkTextList = mQuestionMarkTextList;
@@ -40,10 +40,10 @@ public class ItemOneQuestionBtnAdapter extends RecyclerView.Adapter<ItemOneQuest
     }
 
     @Override
-    public ItemOneQuestionBtnAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemOneQuestionListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_quiz_list_recycler, parent, false);
-        ItemOneQuestionBtnAdapter.ViewHolder holder = new ItemOneQuestionBtnAdapter.ViewHolder(itemView);
+        ItemOneQuestionListAdapter.ViewHolder holder = new ItemOneQuestionListAdapter.ViewHolder(itemView);
         return holder;
     }
 

@@ -64,13 +64,13 @@ public class StudentAnswerItem {
         this.question_value = question_value;
     }
 
-    private String answer;
+    private ArrayList<String> answer;
 
-    public String getAnswer() {
-        return this.answer;
+    public ArrayList<String> getAnswer() {
+        return answer;
     }
 
-    public void setAnswer(String answer) {
+    public void setAnswer(ArrayList<String> answer) {
         this.answer = answer;
     }
 

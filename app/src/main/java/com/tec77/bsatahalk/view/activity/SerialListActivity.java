@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class SerialListActivity extends BaseActivity implements SerialListResponseListener, View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener, LessonsRecyclerAdapter.LessonOnClickListener {
     private RecyclerView serialListRecycler;
-    private Toolbar toolbar;
     private ArrayList<SerialListResponse.LessonPartModel> mSerialList = new ArrayList<>();
     private LessonsRecyclerAdapter mRecyclerAdapter;
     private Button refreshBtn;
@@ -46,7 +45,6 @@ public class SerialListActivity extends BaseActivity implements SerialListRespon
     private void intiViews() {
         listType = getIntent().getStringExtra("listType");
         serialListRecycler = findViewById(R.id.SerialListActivity_RecyclerView_lesseonRecycler);
-        //   toolbar = findViewById(R.id.SerialListActivity_Toolbar_toolbar);
         refreshBtn = findViewById(R.id.SerialListActivity_btn_refreshConnection);
         refreshBtn.setOnClickListener(this);
         networkFailedLinearLayout = findViewById(R.id.SerialListActivity_LinearLayout_NetworkFailed);
@@ -56,9 +54,6 @@ public class SerialListActivity extends BaseActivity implements SerialListRespon
         refresh.setOnRefreshListener(this);
         loading = findViewById(R.id.SerialListActivity_RotateLoading_loading);
         mRecyclerAdapter = new LessonsRecyclerAdapter(this, mSerialList, this);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setTitle(null);
         setAdapters();
         initDataList();
     }
@@ -98,7 +93,6 @@ public class SerialListActivity extends BaseActivity implements SerialListRespon
             }
         });
         serialListRecycler.setAdapter(mRecyclerAdapter);
-        // highLevelRecycler.setAdapter(recyclerAdapter);
     }
 
     @Override

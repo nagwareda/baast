@@ -23,7 +23,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         super.onTokenRefresh();
         sharedPref = SharedPref.getInstance(getApplicationContext());
-        if (!sharedPref.getString("old_token").isEmpty()) {
+        if (!sharedPref.getString("old_token").isEmpty() && sharedPref.loggeedIn()) {
             UpdateFireBaseTokenRequest body = new UpdateFireBaseTokenRequest();
             body.setNewToken(FirebaseInstanceId.getInstance().getToken());
             body.setUser_id(sharedPref.getInt("id"));

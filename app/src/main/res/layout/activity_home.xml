@@ -47,27 +47,15 @@
                         android:textSize="@dimen/large_text_size"
                         tools:ignore="RtlCompat" />
 
-                    <FrameLayout
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end">
-                        <ImageView
-                            android:id="@+id/HomeActivity_ImageView_notification"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:src="@drawable/notification"
-                            android:visibility="gone"/>
-                        <TextView
-                            android:id="@+id/HomeActivity_TextView_numberOfNotification"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="top"
-                            android:layout_marginTop="@dimen/medium_margin"
-                            android:text=""
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="10dp" />
-                    </FrameLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/HomeActivity_languageTxt"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:padding="@dimen/tiny_margin"-->
+                        <!--android:layout_margin="@dimen/small_margin"-->
+                        <!--android:text="En"-->
+                        <!--android:visibility="gone"-->
+                        <!--android:textColor="@color/whiteColor" />-->
 
                 </LinearLayout>
 

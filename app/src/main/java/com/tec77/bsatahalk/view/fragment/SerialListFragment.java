@@ -59,7 +59,6 @@ public class SerialListFragment extends BaseFragment implements SerialListRespon
     private void intiViews() {
         listType = "generalList";
         serialListRecycler = view.findViewById(R.id.SerialListActivity_RecyclerView_lesseonRecycler);
-//        toolbar = view.findViewById(R.id.SerialListActivity_Toolbar_toolbar);
         refreshBtn = view.findViewById(R.id.SerialListActivity_btn_refreshConnection);
         refreshBtn.setOnClickListener(this);
         networkFailedLinearLayout = view.findViewById(R.id.SerialListActivity_LinearLayout_NetworkFailed);
@@ -105,7 +104,6 @@ public class SerialListFragment extends BaseFragment implements SerialListRespon
             }
         });
         serialListRecycler.setAdapter(mRecyclerAdapter);
-        // highLevelRecycler.setAdapter(recyclerAdapter);
     }
 
     @Override

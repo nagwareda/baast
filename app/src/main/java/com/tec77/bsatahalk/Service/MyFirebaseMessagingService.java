@@ -48,28 +48,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (remoteMessage.getData() != null) {
 
-//            if (remoteMessage.getData().get("type") != null && remoteMessage.getData().get("type").equals("chat")) {
-//
-//                String senderId = remoteMessage.getData().get("senderId");
-//                String message = remoteMessage.getData().get("message");
-//                String senderName = remoteMessage.getData().get("senderName");
-//                String senderImage = remoteMessage.getData().get("senderImage");
-//
-//                Log.d("onMessageReceived", "message received");
-//                Log.d("onMessageReceived", "sender " + senderId);
-//                Log.d("onMessageReceived", "message content " + message);
-//                Log.d("onMessageReceived", "type " + remoteMessage.getData().get("type"));
-//                Log.d("onMessageReceived", "nameName " + senderName);
-//                int count = 0;
-//                count = SharedPref.getInstance(this).getInt("numberMessage");
-//                sendChatNotification(message, senderId, senderName, senderImage);
-//                count++;
-//                editor.putInt("numberMessage", count);
-//                editor.commit();
-//                Intent intent = new Intent("numberMessage");
-//                intent.putExtra("countMessage", count);
-//                broadcaster.sendBroadcast(intent);
-//            } else {
+
             int count = 0;
             count = SharedPref.getInstance(this).getInt("numberNotification");
             SharedPref pref = new SharedPref(this);
@@ -89,35 +68,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-//    private void sendChatNotification(String message, String senderId, String senderName, String senderImage) {
-//
-//        Intent chatIntent = new Intent(getApplicationContext(), ChatActivity.class);
-//        chatIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        chatIntent.putExtra(ChatActivity.OTHER_USER_ID_KEY, senderId);
-//        chatIntent.putExtra(ChatActivity.OTHER_USER_NAME_KEY, senderName);
-//        chatIntent.putExtra(ChatActivity.OTHER_USER_IMAGE_URL_KEY, senderImage);
-//
-//        PendingIntent chatPendingIntent = PendingIntent.getActivity(getApplicationContext(), (int) System.currentTimeMillis(), chatIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.ic_launcher))
-//                .setContentTitle(senderName)
-//                .setContentText(message)
-//                .setContentIntent(chatPendingIntent)
-//                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-//                .setAutoCancel(true);
-//
-//        NotificationManager mNotificationManager =
-//                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//
-//        senderId = senderId.replace("client", "");
-//        //update notifications from the same user
-//        mNotificationManager.notify(Integer.valueOf(senderId), mBuilder.build());
-//
-//
-//    }
+
 
     /**
      * @param context     the context of the application
@@ -130,7 +81,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     //TODO:Add This Part
     public static void notifyMe(Context context, int requestCode, Intent intent, String title, String body) {
         intent.putExtra("from", "notification");
-        if(title.contains("قاعده")){
+        if(title.contains("قاعده") || title.contains("القاعده") || title.contains("قاعدة") || title.contains("القاعدة")){
+
             intent.putExtra("ka3da",title);
         }
         PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);

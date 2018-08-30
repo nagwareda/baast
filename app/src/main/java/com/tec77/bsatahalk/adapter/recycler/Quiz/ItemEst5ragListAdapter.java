@@ -1,4 +1,4 @@
-package com.tec77.bsatahalk.adapter.Quiz;
+package com.tec77.bsatahalk.adapter.recycler.Quiz;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,8 +23,8 @@ public class ItemEst5ragListAdapter extends RecyclerView.Adapter<ItemEst5ragList
         implements ItemEst5ragListAnsAdapter.OnCheckedListener {
     private Context context;
     private ArrayList<StudentAnswerItem> questionList = new ArrayList<>();
-    private boolean mShowItem, ansCorrect;
-    String[] stringAnsArray;
+    private boolean mShowItem, ansCorrect =false;
+    ArrayList<String> ansArray = new ArrayList<>();
     ItemEst5ragListAnsAdapter adapter;
     int correctAnsCount = 0;
 
@@ -35,7 +35,7 @@ public class ItemEst5ragListAdapter extends RecyclerView.Adapter<ItemEst5ragList
     }
 
     @Override
-    public void isAnsCorrect(boolean isCorrect) {
+    public void isAnsNotCorrect(boolean isCorrect) {
         this.ansCorrect = isCorrect;
 
 
@@ -60,9 +60,9 @@ public class ItemEst5ragListAdapter extends RecyclerView.Adapter<ItemEst5ragList
         holder.emptyViewHolder();
         holder.questionWordTxt.setText(questionList.get(position).getQuestionValue());
 
-        String answer = questionList.get(position).getAnswer();
-        stringAnsArray = answer.split("/");
-       // holder.ansWordTxt.setText(questionList.get(position).getAnswer());
+        ansArray = questionList.get(position).getAnswer();
+        //stringAnsArray = answer.split("/");
+        // holder.ansWordTxt.setText(questionList.get(position).getAnswer());
 
         int ans_count = questionList.get(position).getAnswer_count();
         adapter = new ItemEst5ragListAnsAdapter(context, position,
@@ -73,14 +73,21 @@ public class ItemEst5ragListAdapter extends RecyclerView.Adapter<ItemEst5ragList
         holder.est5ragAnsRecycler.setAdapter(adapter);
         holder.est5ragAnsRecycler.setLayoutManager(layoutManager);
         if (mShowItem) {
-            adapter.activateItemClick(true);
-            String str = convertHashMapToArray(position);
+            adapter.activateItemClick(true,holder.ansWordTxt);
+
+            HashMap<String, String> hashMap = Const.staticEst5ragList.get(position).est5ragStudentAnsHashMap;
+            int ansSize = hashMap.size();
+            for (String o : hashMap.keySet()) {
+                questionList.get(position).finalAnsArray.add(hashMap.get(o));
+
+            }
             //to display the answer only if wrong answer exist
-            if (!ansCorrect) {
-                holder.ansWordTxt.setText(str);
-                holder.ansWordTxt.setVisibility(View.VISIBLE);
-                holder.ansWordTxt.setTextColor(context.getResources().getColor(R.color.red_color_Dark));
-           }
+//            if (ansCorrect) {
+//                String str = convertHashMapToArray(position);
+//                holder.ansWordTxt.setText(str);
+//                holder.ansWordTxt.setVisibility(View.VISIBLE);
+//                holder.ansWordTxt.setTextColor(context.getResources().getColor(R.color.red_color_Dark));
+//            }
 
         }
         adapter.notifyDataSetChanged();
@@ -89,7 +96,7 @@ public class ItemEst5ragListAdapter extends RecyclerView.Adapter<ItemEst5ragList
 
     private String convertHashMapToArray(int pos) {
         correctAnsCount = 0;
-        String answer = questionList.get(pos).getAnswer();
+        // String answer = questionList.get(pos).getAnswer();
         HashMap<String, String> hashMap = Const.staticEst5ragList.get(pos).est5ragStudentAnsHashMap;
         int ansSize = hashMap.size();
         for (String o : hashMap.keySet()) {
@@ -98,18 +105,32 @@ public class ItemEst5ragListAdapter extends RecyclerView.Adapter<ItemEst5ragList
         }
 
         ArrayList<String> finalStudentAns = questionList.get(pos).finalAnsArray;
+        String[] stringAnsArray;
+        boolean ansFoundFlag;
         for (int i = 0; i < ansSize; i++) {
-            for (int j = 0; j < stringAnsArray.length; j++) {
-                if (finalStudentAns.get(i).trim().contains(stringAnsArray[j].trim())) {
-                    stringAnsArray[j] = "";
-                    correctAnsCount++;
+            ansFoundFlag = false;
+            for (int k = 0; k < ansArray.size(); k++) {
+                if (ansArray.get(k).equals(""))
+                    continue;
+                stringAnsArray = ansArray.get(k).split("/");
+
+                for (int j = 0; j < stringAnsArray.length; j++) {
+                    if (finalStudentAns.get(i).trim().contains(stringAnsArray[j].trim())) {
+                        ansArray.set(j, "");
+                        correctAnsCount++;
+                        ansFoundFlag = true;
+                        break;
+                    }
                 }
+                if (ansFoundFlag)
+                    break;
             }
         }
         String str = "";
-        for (int i = 0; i < stringAnsArray.length; i++) {
-            if (stringAnsArray[i] != "")
-                str = str + "/" + stringAnsArray[i];
+        for (int i = 0; i < ansArray.size(); i++) {
+            if (ansArray.get(i) != "") {
+                str = str + "/" + ansArray.get(i).split("/")[0];
+            }
         }
         return str;
     }

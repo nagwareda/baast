@@ -1,4 +1,4 @@
-package com.tec77.bsatahalk.adapter.recycler;
+package com.tec77.bsatahalk.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +34,7 @@ public class AllMyQuestionAdapter extends RecyclerView.Adapter<AllMyQuestionAdap
 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_all_my_question, parent, false);
-        return  new AllMyQuestionAdapter.ViewHolder(itemView);
+        return  new ViewHolder(itemView);
     }
 
     @Override

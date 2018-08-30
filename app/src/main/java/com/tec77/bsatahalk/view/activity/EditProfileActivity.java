@@ -33,10 +33,10 @@ import com.tec77.bsatahalk.utils.ValidateEditText;
 import java.io.ByteArrayOutputStream;
 
 public class EditProfileActivity extends BaseActivity implements View.OnClickListener {
-    //this email is already found
-    private EditText name, phone, email;
+
+    private EditText name, phone;
     private Button save, refreshBtn;
-    private ImageView profilePic;
+    private ImageView profilePic,uploadPic;
     private int MY_PERMISSIONS_REQUEST_CAMERA = 2;
     private int MY_PERMISSIONS_REQUEST_READ_STORAGE = 1;
     private LinearLayout networkFailedLinearLayout, phoneLinear;
@@ -62,6 +62,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
         networkFailedLinearLayout = findViewById(R.id.EditProfileFragment_LinearLayout_NetworkFailed);
         toolbar = findViewById(R.id.EditProfileActivity_Toolbar_toolbar);
         phoneLinear = findViewById(R.id.EditProfileFragment_phoneLinear);
+        uploadPic  =findViewById(R.id.RegistrationActivity_ImageView_uploadPic);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
@@ -69,9 +70,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
         save.setOnClickListener(this);
         profilePic.setOnClickListener(this);
         refreshBtn.setOnClickListener(this);
-
-//        if (!CheckConnection.getInstance().checkInternetConnection(this))
-//            networkFailedLinearLayout.setVisibility(View.VISIBLE);
+        uploadPic.setOnClickListener(this);
         if (profileResponse != null)
             putDataInView();
 
@@ -79,7 +78,6 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
 
     private void putDataInView() {
         name.setText(profileResponse.getName());
-//        email.setText(profileResponse.getEmail());
         phone.setText(profileResponse.getPhone());
 
         if (!profileResponse.getUser_image().isEmpty())
@@ -96,10 +94,9 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == profilePic.getId()) {
+        if (view.getId() == profilePic.getId() || view.getId() == uploadPic.getId()) {
             dialogShowPhoto();
         } else if (view.getId() == save.getId()) {
-            validationFields();
             if (name.getText().toString().isEmpty() || phone.getText().toString().isEmpty())
                 Toast.makeText(this, getString(R.string.toast_ensure_data), Toast.LENGTH_SHORT).show();
             else {
@@ -108,16 +105,13 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             }
         }
     }
-//        } else if (view.getId() == refreshBtn.getId())
-//            callEditProfileApi();
-//    }
 
     private void callEditProfileApi() {
         if (CheckConnection.getInstance().checkInternetConnection(this)) {
             networkFailedLinearLayout.setVisibility(View.GONE);
             new FastNetworkManger(this).editProfile(prepareObject());
         } else {
-            networkFailedLinearLayout.setVisibility(View.VISIBLE);
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -131,10 +125,6 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
         return obj;
     }
 
-    private void validationFields() {
-        ValidateEditText validateEditText = new ValidateEditText(this, email);
-//        email = (EditText) validateEditText.ValidateEmail();
-    }
 
     public void dialogShowPhoto() {
 
@@ -184,7 +174,6 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
     }
 
     public String convertImage2Base64() {
-        // bitmap = ((BitmapDrawable) profile.getDrawable()).getBitmap();
         profilePic.buildDrawingCache();
         Bitmap bm = profilePic.getDrawingCache();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -201,7 +190,6 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             profilePic.setAlpha(1f);
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             Matrix mat = new Matrix();
-            // mat.postRotate(Integer.parseInt("270"));
             Bitmap bMapRotate = Bitmap.createBitmap(photo, 0, 0, photo.getWidth(), photo.getHeight(), mat, true);
             profilePic.setImageBitmap(bMapRotate);
         }

@@ -1,11 +1,13 @@
 package com.tec77.bsatahalk.view.activity;
 
-import android.content.BroadcastReceiver;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -14,7 +16,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -39,8 +40,6 @@ import com.tec77.bsatahalk.R;
 import com.tec77.bsatahalk.api.FastNetworkManger;
 import com.tec77.bsatahalk.api.request.PushFireBaseTokenRequest;
 import com.tec77.bsatahalk.database.SharedPref;
-import com.tec77.bsatahalk.listener.PushFireBaseTokenRequestListener;
-import com.tec77.bsatahalk.utils.CheckConnection;
 import com.tec77.bsatahalk.utils.CustomTypefaceSpan;
 import com.tec77.bsatahalk.utils.FontProvider;
 import com.tec77.bsatahalk.view.fragment.AboutUsFragment;
@@ -49,14 +48,15 @@ import com.tec77.bsatahalk.view.fragment.CategoryFragment;
 import com.tec77.bsatahalk.view.fragment.ContactUsFragment;
 import com.tec77.bsatahalk.view.fragment.Emla2SerialFragment;
 import com.tec77.bsatahalk.view.fragment.HomeFragment;
-import com.tec77.bsatahalk.view.fragment.NotificationFragment;
 import com.tec77.bsatahalk.view.fragment.ProfileFragment;
 import com.tec77.bsatahalk.view.fragment.SerialListFragment;
+
+import java.util.Locale;
 
 import static com.tec77.bsatahalk.database.SharedPref.editor;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener,
-        NavigationView.OnNavigationItemSelectedListener, PushFireBaseTokenRequestListener {
+        NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -64,18 +64,23 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
     private boolean doubleBackToExitPressedOnce = false;
     private View headerLayout;
     private int itemId;
-    private TextView titleTxt, numberOfNotification;
-    private ImageView profilePic;
     private SharedPref pref;
+    private TextView languageTxt;
     private ImageView notificationImg;
+    boolean langBoolean=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pref = SharedPref.getInstance(this);
+//        if(savedInstanceState == null || langBoolean==false)
+           setLocale(getApplicationContext(),"ar");
+
+       // saveLanguage("ar");
         setContentView(R.layout.activity_home);
+
         initView();
         actionView();
-        // partNumberNotification();
 
         if (savedInstanceState != null) {
             navigationView.getMenu().getItem(itemId).setChecked(true);
@@ -84,37 +89,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
 
         if (getIntent().getStringExtra("from") != null && getIntent().getStringExtra("from").equals("contactUs"))
             replaceContentMainFragment(new ContactUsFragment());
-        else if (getIntent().getStringExtra("from") != null && getIntent().getStringExtra("from").equals("profile")){
+        else if (getIntent().getStringExtra("from") != null && getIntent().getStringExtra("from").equals("profile")) {
             replaceContentMainFragment(new ProfileFragment());
-        }
-        else
+        } else
             replaceContentMainFragment(new HomeFragment());
 
-        if (getIntent().getStringExtra("from") != null && getIntent().getStringExtra("from").equals("notification")){
-            if(getIntent().getStringExtra("ka3da")!= null)
+        if (getIntent().getStringExtra("from") != null && getIntent().getStringExtra("from").equals("notification")) {
+            if (getIntent().getStringExtra("ka3da") != null)
                 displayGrammerAlert(getIntent().getStringExtra("ka3da"));
         }
 
 
-
-        Log.d("fbToken", FirebaseInstanceId.getInstance().getToken());
-        if (pref.getString("old_token").isEmpty())
+        Log.d("fbToken", FirebaseInstanceId.getInstance().getToken()+"");
+        if (pref.getString("old_token") == null || pref.getString("old_token").isEmpty())
             pushFBToken();
 
-//        int count;
-//        count = new SharedPref(this).getInt("numberNotification");
-//        if (count > 99) {
-//            numberOfNotification.setText(R.string.more_than_99); //setting values to the TextViews
-//        } else {
-//            if (count == 0) {
-//                numberOfNotification.setVisibility(View.GONE);
-//            } else {
-//                numberOfNotification.setText("" + count);
-//            }
-//        }
 
-
-        Typeface font = FontProvider.getFont(HomeActivity.this);
         //apply font on navigation view
         Menu m = navigationView.getMenu();
         for (int i = 0; i < m.size(); i++) {
@@ -129,6 +119,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
             applyFontToMenuItem(mi);
         }
     }
+
 
     private void displayGrammerAlert(final String ka3da) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -152,70 +143,35 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
     }
 
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        LocalBroadcastManager.getInstance(this).registerReceiver((mMessageReceiver), new IntentFilter("numberNotification"));
-
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
         outState.putInt("selectedNavItem", itemId);
+        outState.putBoolean("langBoolean",langBoolean);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        langBoolean = savedInstanceState.getBoolean("langBoolean");
+        itemId = savedInstanceState.getInt("selectedNavItem");
     }
 
     private void initView() {
+//        languageTxt = findViewById(R.id.HomeActivity_languageTxt);
+//        languageTxt.setText(pref.getString("lan"));
         drawerLayout = findViewById(R.id.HomeActivity_DrawerLayout_drawer);
         navigationView = findViewById(R.id.HomeActivity_navigation_view);
         headerLayout = navigationView.getHeaderView(0); // 0-index header
-        titleTxt = findViewById(R.id.HomeActivity_TextView_title);
         toolbar = findViewById(R.id.HomeActivity_Toolbar_toolbar);
-//        userNameTxt = headerLayout.findViewById(R.id.NavigationHeader_TextView_name);
-//        profilePic = headerLayout.findViewById(R.id.NavigationHeader_CircleImageView_profile);
-        numberOfNotification = findViewById(R.id.HomeActivity_TextView_numberOfNotification);
-        notificationImg = findViewById(R.id.HomeActivity_ImageView_notification);
-        pref = SharedPref.getInstance(this);
-        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
 
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                //Called when a drawer's position changes.
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-//                String photoStr = pref.getString("profile");
-//                if (!photoStr.isEmpty())
-//                    Picasso.with(HomeActivity.this)
-//                            .load(pref.getString("profile"))
-//                            .placeholder(R.drawable.fake_profile)
-//                            .error(R.color.blackColor)
-//                            .centerCrop().fit()
-//                            .into(profilePic);
-//
-//                if (pref.getString("userName") != null)
-//                    userNameTxt.setText(pref.getString("userName"));
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                // Called when a drawer has settled in a completely closed state.
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                // Called when the drawer motion state changes. The new state will be one of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
-            }
-        });
     }
 
     private void actionView() {
         navigationView.setNavigationItemSelectedListener(this);
         toolbar.setNavigationOnClickListener(this);
         headerLayout.setOnClickListener(this);
-        notificationImg.setOnClickListener(this);
+//        languageTxt.setOnClickListener(this);
     }
 
     @Override
@@ -240,7 +196,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
                 break;
             }
 
-            case R.id.nav_questions:{
+            case R.id.nav_questions: {
                 replaceContentMainFragment(new AllQuestionsFragment());
                 navigationView.getMenu().getItem(2).setChecked(true);
                 break;
@@ -283,21 +239,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
         if (view.getId() == headerLayout.getId() && drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers();
             replaceContentMainFragment(new ProfileFragment());
-        } else if (view.getId() == R.id.HomeActivity_ImageView_notification) {
-            if (CheckConnection.getInstance().checkInternetConnection(this)) {
-                numberOfNotification.setVisibility(View.GONE);
-                editor.putInt("numberNotification", 0);
-                editor.commit();
-                replaceContentMainFragment(new NotificationFragment());
-            }
-        } else {
+        }
+//        else if(view.getId() == languageTxt.getId()){
+//            if(pref.getString("lan")!=null && pref.getString("lan").equals("en"))
+//                setLocale(getApplicationContext(),"ar");
+//            else
+//                setLocale(getApplicationContext(),"en");
+//        }
+        else {
             drawerLayout.openDrawer(Gravity.START);
         }
 
     }
-
-
-    //handle & change fragments on item selection
 
     public void replaceContentMainFragment(Fragment fragment) {
         FragmentManager ft = getSupportFragmentManager();
@@ -364,7 +317,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                        deleteFBToken();
                         LoginManager.getInstance().logOut();
                         editor.clear();
                         editor.apply();
@@ -380,54 +333,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
                 }).show();
     }
 
-    private void startFragmentInCase() {
-
-        if (getIntent().getStringExtra("from") != null)
-            replaceContentMainFragment(new NotificationFragment());
-        else
-            replaceContentMainFragment(new HomeFragment());
-
-    }
-
     private void pushFBToken() {
         PushFireBaseTokenRequest body = new PushFireBaseTokenRequest();
         body.setToken(FirebaseInstanceId.getInstance().getToken());
         Log.d("fbId", FirebaseInstanceId.getInstance().getToken());
         body.setUser_id(pref.getInt("id"));
-        new FastNetworkManger(HomeActivity.this).PushFireBaseToken(body, HomeActivity.this);
+        new FastNetworkManger(HomeActivity.this).PushFireBaseToken(body);
 
     }
 
-    private void alertDialogNotificationRequest() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        TextView textView = new TextView(this);
-        textView.setText(getString(R.string.push_notification));
-        textView.setTextColor(ContextCompat.getColor(this, android.R.color.black));
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        textView.setTypeface(Typeface.DEFAULT_BOLD);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        textView.setPadding(33, 50, 10, 10);
-        builder.setCustomTitle(textView);
-        builder.setMessage(getString(R.string.ask_notification_push))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        PushFireBaseTokenRequest body = new PushFireBaseTokenRequest();
-                        body.setToken(FirebaseInstanceId.getInstance().getToken());
-                        body.setUser_id(pref.getInt("id"));
-                        new FastNetworkManger(HomeActivity.this).PushFireBaseToken(body, HomeActivity.this);
-
-                    }
-                })
-                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
-        dialog.show();
-
+    private void deleteFBToken() {
+        new FastNetworkManger(HomeActivity.this).deleteFireBaseToken(SharedPref.getInstance(this).getInt("id"));
     }
 
     @Override
@@ -455,51 +371,58 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener,
         } else if (counterFraghment == 1 && drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers();  // CLOSE DRAWER
         } else {
-            if (doubleBackToExitPressedOnce) {
+            //if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
-                return;
-            }
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, getString(R.string.confirm_exit_message), Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
+            super.onBackPressed();
+               // return;
+           // }
+//            this.doubleBackToExitPressedOnce = true;
+//            Toast.makeText(this, getString(R.string.confirm_exit_message), Toast.LENGTH_SHORT).show();
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    doubleBackToExitPressedOnce = false;
+//                }
+//            }, 2000);
         }
     }
 
-    public void partNumberNotification() {
-        int count;
-        count = new SharedPref(this).getInt("numberNotification");
-        if (count > 99) {
-            numberOfNotification.setText(R.string.more_than_99); //setting values to the TextViews
-        } else {
-            if (count == 0) {
-                numberOfNotification.setVisibility(View.GONE);
-            } else {
-                numberOfNotification.setText("" + count);
-            }
-        }
+    //to start arabic language in application
+    private void saveLanguage(String lang){
+        SharedPref preferences =SharedPref.getInstance(this);
+        editor.putString("language",lang);
+        editor.apply();
     }
 
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
+    private void setLocale(final Context ctx, String lang) {
+        pref.putString("lan",lang);
+        Locale myLocale = new Locale(lang);
+        Locale.setDefault(myLocale);
+        Configuration config = new Configuration();
 
-            if (intent.getExtras().getInt("count") > 99) {
-                numberOfNotification.setVisibility(View.VISIBLE);
-                numberOfNotification.setText(R.string.more_than_99);
-            } else if (intent.getExtras().getInt("count") != 0) {
-                numberOfNotification.setVisibility(View.VISIBLE);
-                numberOfNotification.setText("" + intent.getExtras().getInt("count"));
-            } //setting values to the TextViews
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLocale(myLocale);
+            ctx.createConfigurationContext(config);
+            ctx.getResources().updateConfiguration(config, ctx.getResources().getDisplayMetrics());
+
+        }else{
+            config.locale=myLocale;
+            getApplicationContext().getResources().updateConfiguration(config,null);
         }
-    };
+       // restartActivity();
 
+    }
     @Override
-    public void tokenPushed() {
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        SharedPref preferences =SharedPref.getInstance(this);
 
+    }
+
+    private void restartActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }

@@ -20,12 +20,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.tec77.bsatahalk.R;
-import com.tec77.bsatahalk.adapter.Quiz.ItemChooseRecyclerAdapter;
-import com.tec77.bsatahalk.adapter.Quiz.ItemE3rabRecyclerAdapter;
-import com.tec77.bsatahalk.adapter.Quiz.ItemEst5ragListAdapter;
+import com.tec77.bsatahalk.adapter.recycler.Quiz.ItemChooseRecyclerAdapter;
+import com.tec77.bsatahalk.adapter.recycler.Quiz.ItemE3rabRecyclerAdapter;
+import com.tec77.bsatahalk.adapter.recycler.Quiz.ItemEst5ragListAdapter;
 import com.tec77.bsatahalk.api.FastNetworkManger;
 import com.tec77.bsatahalk.api.request.AddQuizDegreeRequest;
 import com.tec77.bsatahalk.api.response.Quiz.OneQuestionModel;
@@ -36,7 +35,6 @@ import com.tec77.bsatahalk.listener.ResponseChooseQuestionListener;
 import com.tec77.bsatahalk.model.StudentAnswerItem;
 import com.tec77.bsatahalk.utils.CheckConnection;
 import com.tec77.bsatahalk.utils.Const;
-import com.tec77.bsatahalk.view.dialog.QuestionImgDialog;
 import com.tec77.bsatahalk.view.dialog.SolveE3rabQuestionDialog;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -64,7 +62,7 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
     private ItemEst5ragListAdapter est5ragAdapter;
     private ItemChooseRecyclerAdapter chooseAdapter;
     private String imgUrl;
-    private int questionId ,qTotalMark;
+    private int questionId, qTotalMark;
     private float finalResult;
     private HashMap<String, Float> questionsResultList = new HashMap<>();
     private LinearLayout questionTotalMarkLinear;
@@ -78,11 +76,9 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.activity_one_question);
         initView();
         actionView();
-       // putDataInView();
     }
 
     private void initView() {
-//        checkEditTxt = findViewById(R.id.OneQuestion_editText_check);
         e3rabList = (ArrayList<OneQuestionModel>) getIntent().getSerializableExtra("e3rabList");
         est5ragList = (ArrayList<OneQuestionModel>) getIntent().getSerializableExtra("est5ragList");
         questionId = getIntent().getIntExtra("qId", -1);
@@ -95,7 +91,10 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
         est5ragFrame = findViewById(R.id.OneQuestion_frameLayout_est5rag);
         e3rabRecycler = findViewById(R.id.OneQuestion_Recycler_e3raab);
         est5ragRecycler = findViewById(R.id.OneQuestion_Recycler_Est5rag);
+        est5ragRecycler.setNestedScrollingEnabled(false);
         chooseRecycler = findViewById(R.id.OneQuestion_Recycler_choose);
+
+        chooseRecycler.setNestedScrollingEnabled(false);
         chooseFrame = findViewById(R.id.OneQuestion_frameLayout_choose);
         totalMarkTxt = findViewById(R.id.OneQuestion_txt_totalDegreeTxt);
         questionTotalMarkLinear = findViewById(R.id.OneQuestion_LinearLayout_totalQuestionMark);
@@ -104,9 +103,6 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
         est5ragAdapter = new ItemEst5ragListAdapter(this, staticEst5ragList);
         chooseAdapter = new ItemChooseRecyclerAdapter(this, chooseList);
         toolbar = findViewById(R.id.OneQuestion_Toolbar_toolbar);
-        //refresh = findViewById(R.id.OneQuestion_swipeRefreshLayout_refresh);
-       // refresh.setColorSchemeResources(R.color.colorPrimary);
-       // refresh.setOnRefreshListener(this);
 
         howSolveE3rabTxt = findViewById(R.id.OneQuestion_textView_howSolveQuiz);
         callChooseQuestionApi();
@@ -121,7 +117,7 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
         if (CheckConnection.getInstance().checkInternetConnection(this)) {
             new FastNetworkManger(this).getChooseQuestion(questionId, this, loading);
         } else {
-            Toast.makeText(this, getString(R.string.no_year), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -168,11 +164,8 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
                     .load(imgUrl)
                     .placeholder(R.drawable.defult_img)
                     .error(R.color.blackColor)
-
+                    .fit()
                     .into(questionImg);
-//            Glide.with(this)
-//                    .load(imgUrl)
-//                    .into(questionImg);
 
         if (!e3rabList.isEmpty()) {
             e3rabFrame.setVisibility(View.VISIBLE);
@@ -205,7 +198,7 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
                 item.setItemMark(0);
                 staticE3rabList.add(item);
             }
-           e3rabAdapter.notifyDataSetChanged();
+            e3rabAdapter.notifyDataSetChanged();
         } else {
             StudentAnswerItem item;
             staticEst5ragList.clear();
@@ -229,25 +222,13 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view.getId() == checkBtn.getId()) {
-            displayAletDailog();
-//            if (!est5ragList.isEmpty()) {
-//                est5ragAdapter.changeFocuse();
-//                est5ragAdapter.notifyDataSetChanged();
-//                est5ragTxt.setVisibility(View.VISIBLE);
-//            }
-//            if (!e3rabList.isEmpty())
-//                e3rabAdapter.notifyDataSetChanged();
-
+            displayAlertDialog();
         } else if (view.getId() == questionImg.getId()) {
             if (imgUrl != null) {
 
-                Intent intent = new Intent(OneQuestionActivity.this,ImageActivity.class);
-                intent.putExtra("imgUrl",imgUrl);
+                Intent intent = new Intent(OneQuestionActivity.this, ImageDisplayActivity.class);
+                intent.putExtra("imgUrl", imgUrl);
                 startActivity(intent);
-
-//                QuestionImgDialog dialog = new QuestionImgDialog(imgUrl);
-//                //dialog.getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
-//                dialog.show(getSupportFragmentManager(), "questionImage");
             }
         } else if (view.getId() == howSolveE3rabTxt.getId()) {
             SolveE3rabQuestionDialog dialog = new SolveE3rabQuestionDialog();
@@ -260,7 +241,6 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
             if (!e3rabList.isEmpty())
                 for (int i = 0; i < staticE3rabList.size(); i++) {
                     if (staticE3rabList.get(i).isAnsCorrect() && staticE3rabList.get(i).isMarkAnsCorrect())
-                        // finalResult += Float.valueOf(staticE3rabList.get(i).getAnswer_count());
                         finalResult += 1;
                 }
             if (!est5ragList.isEmpty()) {
@@ -273,16 +253,15 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
             if (!chooseList.isEmpty())
                 for (int i = 0; i < chooseList.size(); i++) {
                     if (chooseList.get(i).getAnswer().equals(chooseList.get(i).getStudentAns()))
-                        // finalResult += Float.valueOf(staticE3rabList.get(i).getAnswer_count());
                         finalResult += 1;
                 }
             callSendQuizResult();
         } else {
-            displayAletDailog();
+            displayAlertDialog();
         }
     }
 
-    private void displayAletDailog() {
+    private void displayAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         TextView textView = new TextView(this);
         textView.setText("");
@@ -341,7 +320,7 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
     private void afterResultCalculation() {
         checkBtn.setVisibility(View.GONE);
         questionTotalMarkLinear.setVisibility(View.VISIBLE);
-        totalMarkTxt.setText((int)finalResult + "/"+qTotalMark);
+        totalMarkTxt.setText((int) finalResult + "/" + qTotalMark);
     }
 
     @Override
@@ -383,13 +362,24 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
 
         //checkEst5ragAns
         if (!est5ragList.isEmpty()) {
+
             int totalAnsCount = 0;
             for (int i = 0; i < est5ragList.size(); i++) {
                 totalAnsCount += est5ragList.get(i).getAnswer_count();
             }
 
-            if (Const.staticStudentAns.size() < totalAnsCount)
-                return false;
+            if (!Const.staticEst5ragList.isEmpty()) {
+                int totalStudentAnsCount = 0;
+                for (int i = 0; i < Const.staticEst5ragList.size(); i++) {
+                    totalStudentAnsCount += Const.staticEst5ragList.get(i).getEst5ragStudentAnsHashMap().size();
+                }
+
+                if (totalStudentAnsCount < totalAnsCount)
+                    return false;
+            }
+
+//            if (Const.staticStudentAns.size() < totalAnsCount)
+//                return false;
         }
 
         //checkChooseAns
@@ -409,8 +399,11 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void chooseQuestionList(ArrayList<ResponseChooseQuestion.ItemChooseQuestion> chooseQList) {
-        qTotalMark = chooseQList.size()+ e3rabList.size()+ est5ragList.size();
-        totalMarkTxt.setText("/"+qTotalMark);
+        int est5ragCount = 0;
+        for (int i = 0; i < est5ragList.size(); i++)
+            est5ragCount += est5ragList.get(i).getAnswer_count();
+        qTotalMark = chooseQList.size() + e3rabList.size() + est5ragCount;
+        totalMarkTxt.setText("/" + qTotalMark);
         chooseList.clear();
         chooseList.addAll(chooseQList);
         putDataInView();
@@ -419,10 +412,4 @@ public class OneQuestionActivity extends BaseActivity implements View.OnClickLis
             chooseFrame.setVisibility(View.GONE);
     }
 
-//    @Override
-//    public void onRefresh() {
-//        callChooseQuestionApi();
-//        refresh.setRefreshing(false);
-//
-//    }
 }

@@ -28,8 +28,9 @@ import java.util.ArrayList;
 
 public class Emla2SerialFragment extends BaseFragment implements SerialListResponseListener, View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener,LessonsRecyclerAdapter.LessonOnClickListener {
+
+
     private RecyclerView serialListRecycler;
-    private Toolbar toolbar;
     private ArrayList<SerialListResponse.LessonPartModel> mSerialList = new ArrayList<>();
     private LessonsRecyclerAdapter mRecyclerAdapter;
     private Button refreshBtn;
@@ -58,7 +59,6 @@ public class Emla2SerialFragment extends BaseFragment implements SerialListRespo
     private void intiViews() {
         listType = "spellingList";
         serialListRecycler = view.findViewById(R.id.SerialListActivity_RecyclerView_lesseonRecycler);
-        //toolbar = view.findViewById(R.id.SerialListActivity_Toolbar_toolbar);
         refreshBtn = view.findViewById(R.id.SerialListActivity_btn_refreshConnection);
         refreshBtn.setOnClickListener(this);
         networkFailedLinearLayout = view.findViewById(R.id.SerialListActivity_LinearLayout_NetworkFailed);

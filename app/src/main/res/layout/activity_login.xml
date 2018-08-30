@@ -48,13 +48,12 @@
                             android:layout_marginLeft="@dimen/large_margin"
                             android:layout_marginRight="@dimen/large_margin"
                             android:layout_marginTop="@dimen/tiny_margin"
-                            android:drawableLeft="@drawable/envelope"
                             android:drawablePadding="@dimen/small_padding"
-                            android:drawableStart="@drawable/envelope"
                             android:hint="@string/email"
                             android:inputType="textEmailAddress"
                             android:padding="@dimen/small_padding"
-                            android:textColorHint="@color/blackColorLight" />
+                            android:textColorHint="@color/blackColorLight"
+                            android:drawableLeft="@drawable/envelope" />
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
@@ -89,15 +88,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/medium_margin"
+               android:layout_marginBottom="@dimen/small_margin"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:background="@color/colorPrimary"
                 android:paddingHorizontal="@dimen/medium_padding"
                 android:text="@string/login"
                 android:textAllCaps="false"
                 android:textColor="@color/whiteColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/LoginActivity_textView_forgetPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:textStyle="bold"
-                android:textSize="18sp" />
+                android:text="@string/forgetPass"
+                android:textColor="@color/colorPrimary"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

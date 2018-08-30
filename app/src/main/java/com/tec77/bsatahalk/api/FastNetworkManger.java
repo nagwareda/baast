@@ -15,6 +15,7 @@ import com.facebook.login.LoginManager;
 import com.tec77.bsatahalk.R;
 import com.tec77.bsatahalk.api.request.AddQuizDegreeRequest;
 import com.tec77.bsatahalk.api.request.ContactUsRequest;
+import com.tec77.bsatahalk.api.request.ForgetPassRequest;
 import com.tec77.bsatahalk.api.request.LessonRateRequest;
 import com.tec77.bsatahalk.api.request.LoginRequest;
 import com.tec77.bsatahalk.api.request.PushFireBaseTokenRequest;
@@ -42,7 +43,6 @@ import com.tec77.bsatahalk.listener.LessonConclusionResponseListener;
 import com.tec77.bsatahalk.listener.LessonQuizResponseListener;
 import com.tec77.bsatahalk.listener.LessonRateResponseListener;
 import com.tec77.bsatahalk.listener.ProfileResponseListener;
-import com.tec77.bsatahalk.listener.PushFireBaseTokenRequestListener;
 import com.tec77.bsatahalk.listener.QuizDegreeResponseListener;
 import com.tec77.bsatahalk.listener.ResponseChooseQuestionListener;
 import com.tec77.bsatahalk.listener.ResponseHomeVideoListener;
@@ -51,7 +51,6 @@ import com.tec77.bsatahalk.listener.SerialListResponseListener;
 import com.tec77.bsatahalk.listener.TopTenListResponseListener;
 import com.tec77.bsatahalk.view.activity.HomeActivity;
 import com.tec77.bsatahalk.view.activity.LoginActivity;
-import com.tec77.bsatahalk.view.activity.SplashActivity;
 import com.tec77.bsatahalk.view.activity.splashSliderActivity;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -439,7 +438,7 @@ public class FastNetworkManger {
 
     }
 
-    public void PushFireBaseToken(final PushFireBaseTokenRequest body, final PushFireBaseTokenRequestListener callBack) {
+    public void PushFireBaseToken(final PushFireBaseTokenRequest body) {
 //        final ProgressDialog dialog;
 //        dialog = new ProgressDialog(context);
 //        String pleaseWait = context.getString(R.string.Dialog_please_wait);
@@ -499,6 +498,29 @@ public class FastNetworkManger {
                 });
     }
 
+    public void deleteFireBaseToken(int id) {
+        String url = HOST + "deletePushToken/"+id;
+        AndroidNetworking.delete(url)
+                .setPriority(Priority.MEDIUM)
+                .addHeaders("Authorization", sharedPref.getString("token"))
+                .build()
+                .getAsObject(GeneralResponse.class, new ParsedRequestListener<GeneralResponse>() {
+                    @Override
+                    public void onResponse(GeneralResponse response) {
+                        if (response.isSuccess()) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorBody() != null && anError.getErrorBody().contains("token_expired")) {
+                            jumpToLogin();
+                        } else
+                            Toast.makeText(context, anError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
     public void addQuizDegree(final AddQuizDegreeRequest body, final QuizDegreeResponseListener callBack) {
         final ProgressDialog dialog;
         dialog = new ProgressDialog(context);
@@ -818,7 +840,7 @@ public class FastNetworkManger {
         String pleaseWait = context.getString(R.string.Dialog_please_wait);
         dialog.setMessage(pleaseWait);
         dialog.show();
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         String url = HOST + "getProgram";
         AndroidNetworking.get(url)
                 .setPriority(Priority.MEDIUM)
@@ -847,5 +869,42 @@ public class FastNetworkManger {
 
     }
 
+    public void forgetPassRequest(ForgetPassRequest body){
+        final ProgressDialog dialog;
+        dialog = new ProgressDialog(context);
+        String pleaseWait = context.getString(R.string.Dialog_please_wait);
+        dialog.setMessage(pleaseWait);
+        dialog.show();
+        dialog.setCancelable(false);
+        String url = HOST + "rest-password";
+        AndroidNetworking.post(url)
+                .setPriority(Priority.MEDIUM)
+                .addApplicationJsonBody(body)
+                .addHeaders("Authorization", sharedPref.getString("token"))
+                .build()
+                .getAsObject(GeneralResponse.class, new ParsedRequestListener<GeneralResponse>() {
+                    @Override
+                    public void onResponse(GeneralResponse response) {
+                        if (response.getCode() == 200) {
+                            Toast.makeText(context, context.getString(R.string.success), Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorBody() != null && anError.getErrorBody().contains("token_expired")) {
+                            jumpToLogin();
+                        }else if(anError.getErrorBody().contains("this email is not found")){
+                            Toast.makeText(context, context.getString(R.string.email_not_found), Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(context, context.getString(R.string.timeOut), Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.dismiss();
+
+                    }
+                });
+    }
 }
 

@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tec77.bsatahalk.R;
-import com.tec77.bsatahalk.adapter.Quiz.ItemOneQuestionBtnAdapter;
+import com.tec77.bsatahalk.adapter.recycler.Quiz.ItemOneQuestionListAdapter;
 import com.tec77.bsatahalk.api.FastNetworkManger;
 import com.tec77.bsatahalk.api.response.Quiz.QuestionsModel;
 import com.tec77.bsatahalk.api.response.Quiz.QuizModel;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import static com.tec77.bsatahalk.utils.Const.staticQuestionMarkTxtList;
 
 public class QuizActivity2 extends BaseActivity implements LessonQuizResponseListener,
-        ItemOneQuestionBtnAdapter.SelectedQuestionList,View.OnClickListener,SwipeRefreshLayout.OnRefreshListener {
+        ItemOneQuestionListAdapter.SelectedQuestionList,View.OnClickListener,SwipeRefreshLayout.OnRefreshListener {
 
     private Toolbar toolbar;
     private ArrayList<QuizModel> quizList = new ArrayList<>();
@@ -36,7 +36,7 @@ public class QuizActivity2 extends BaseActivity implements LessonQuizResponseLis
     private TextView noQuizTxt;
     private int lessonId;
     private RecyclerView questionsBtnRecycler;
-    private ItemOneQuestionBtnAdapter adapter;
+    private ItemOneQuestionListAdapter adapter;
     private RotateLoading loading;
     private SwipeRefreshLayout refresh;
 
@@ -61,7 +61,7 @@ public class QuizActivity2 extends BaseActivity implements LessonQuizResponseLis
     }
 
     private void initViews() {
-        //questionMarkTxt.addAll(staticQuestionMarkTxtList);
+
         lessonId = getIntent().getIntExtra("lessonId", -1);
         toolbar = findViewById(R.id.QuizActivity2_Toolbar_toolbar);
         loading = findViewById(R.id.QuizActivity2_RotateLoading_loading);
@@ -73,7 +73,7 @@ public class QuizActivity2 extends BaseActivity implements LessonQuizResponseLis
         refresh.setOnRefreshListener(this);
         questionsBtnRecycler = findViewById(R.id.QuizActivity2_RecyclerView_questionRecycler);
         noQuizTxt = findViewById(R.id.QuizActivity2_TextView_noLessonAvailable);
-        adapter = new ItemOneQuestionBtnAdapter(this, quizList, staticQuestionMarkTxtList, this);
+        adapter = new ItemOneQuestionListAdapter(this, quizList, staticQuestionMarkTxtList, this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
@@ -145,16 +145,4 @@ public class QuizActivity2 extends BaseActivity implements LessonQuizResponseLis
         refresh.setRefreshing(false);
 
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == RETURN_MARK_REQUEST_CODE && requestCode == Activity.RESULT_OK) {
-//            if (data != null)
-//                staticQuestionMarkTxtList.add(data.getStringExtra("questionResult"));
-//            questionMarkTxt.clear();
-//            questionMarkTxt.addAll(staticQuestionMarkTxtList);
-//            adapter.notifyDataSetChanged();
-//        }
-//    }
 }

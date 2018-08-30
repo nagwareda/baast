@@ -12,7 +12,7 @@ import com.github.piasy.biv.view.BigImageView;
 import com.squareup.picasso.Picasso;
 import com.tec77.bsatahalk.R;
 
-public class ImageActivity extends BaseActivity {
+public class ImageDisplayActivity extends BaseActivity {
 
     private PhotoView img;
     private String urlImg;
@@ -26,8 +26,6 @@ public class ImageActivity extends BaseActivity {
         Glide.with(this)
                 .load(urlImg)
                 .into(img);
-//        img.showImage(Uri.parse(urlImg));
-//        img.setInitScaleType(BigImageView.INIT_SCALE_TYPE_CENTER_CROP);
 
     }
 }

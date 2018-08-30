@@ -6,7 +6,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.tec77.bsatahalk.api.response.PartModelYear;
 import com.tec77.bsatahalk.api.response.SchoolClassesResponse;
 import com.tec77.bsatahalk.listener.SchoolClassResponseListener;
 import com.tec77.bsatahalk.utils.CheckConnection;
-import com.tec77.bsatahalk.view.activity.CategoryActivity;
 import com.tec77.bsatahalk.view.activity.StudentListActivity;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -44,7 +42,7 @@ public class CategoryFragment extends BaseFragment implements SchoolClassRespons
     private SwipeRefreshLayout refresh;
     private View view;
     private TextView title;
-    private RadioButton firstSemesterRB, secondSemesterRB;
+    private RadioButton firstSemesterRB;
     private RadioGroup radioGroup;
 
     @Override
@@ -68,7 +66,6 @@ public class CategoryFragment extends BaseFragment implements SchoolClassRespons
         networkFailedLinearLayout = view.findViewById(R.id.CategoryActivity_LinearLayout_NetworkFailed);
         loading = view.findViewById(R.id.CategoryActivity_RotateLoading_loading);
         firstSemesterRB = view.findViewById(R.id.CategoryActivity_radioBtn_first);
-        secondSemesterRB = view.findViewById(R.id.CategoryActivity_radioBtn_second);
         radioGroup = view.findViewById(R.id.CategoryActivity_radioGroup);
         title = getActivity().findViewById(R.id.HomeActivity_TextView_title);
         title.setText(getActivity().getString(R.string.classes_title));
@@ -128,15 +125,6 @@ public class CategoryFragment extends BaseFragment implements SchoolClassRespons
         categoryRecyclerAdapter.notifyDataSetChanged();
 
     }
-
-    private void checkEmptyList(ArrayList<PartModelYear> list) {
-        PartModelYear noYear = new PartModelYear();
-        noYear.setId(-1);
-        noYear.setName(getString(R.string.no_year));
-        if (list.isEmpty())
-            list.add(noYear);
-    }
-
 
 
     @Override

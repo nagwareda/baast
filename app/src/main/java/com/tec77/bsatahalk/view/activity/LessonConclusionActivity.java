@@ -21,7 +21,6 @@ import com.tec77.bsatahalk.api.response.ResponseLessonConclusion;
 import com.tec77.bsatahalk.api.response.SerialListResponse;
 import com.tec77.bsatahalk.listener.LessonConclusionResponseListener;
 import com.tec77.bsatahalk.utils.CheckConnection;
-import com.tec77.bsatahalk.view.dialog.QuestionImgDialog;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
@@ -122,12 +121,9 @@ public class LessonConclusionActivity extends BaseActivity implements SwipeRefre
 
     @Override
     public void onImgClick(String imgUrl) {
-        Intent intent = new Intent(LessonConclusionActivity.this,ImageActivity.class);
+        Intent intent = new Intent(LessonConclusionActivity.this,ImageDisplayActivity.class);
         intent.putExtra("imgUrl",imgUrl);
         startActivity(intent);
-//        QuestionImgDialog dialog = new QuestionImgDialog(imgUrl);
-//        //dialog.getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
-//        dialog.show(getSupportFragmentManager(), "questionImage");
 
     }
 }

@@ -1,4 +1,4 @@
-package com.tec77.bsatahalk.adapter.Quiz;
+package com.tec77.bsatahalk.adapter.recycler.Quiz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tec77.bsatahalk.R;
 import com.tec77.bsatahalk.model.StudentAnswerItem;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.tec77.bsatahalk.utils.Const.staticE3rabList;
 
@@ -53,10 +51,10 @@ public class ItemE3rabRecyclerAdapter extends RecyclerView.Adapter<ItemE3rabRecy
         holder.emptyViewHolder();
         holder.questionTypeTxt.setText(questionList.get(position).getQuestionValue());
 
-        String answer = questionList.get(position).getAnswer();
+        ArrayList<String> answer = questionList.get(position).getAnswer();
         String answerMark = questionList.get(position).getMarkAnswer();
 
-        String[] stringAnsArray = answer.split("/");
+        String[] stringAnsArray = answer.get(0).split("/");
         String[] stringAnsMarkArray = answerMark.split("/");
 
         holder.answer1_1_ET.setText(questionList.get(position).getStudentAns());
@@ -174,6 +172,16 @@ public class ItemE3rabRecyclerAdapter extends RecyclerView.Adapter<ItemE3rabRecy
         }
     }
 
+    private boolean validAnswer(ArrayList<String> answerArr, String answerStudent) {
+        String answer = answerArr.get(0);
+        String[] stringArray = answer.split("/");
+        for (int i = 0; i < stringArray.length; i++) {
+            if (stringArray[i].trim().equals(answerStudent.trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
     private boolean validAnswer(String answer, String answerStudent) {
         String[] stringArray = answer.split("/");
         for (int i = 0; i < stringArray.length; i++) {

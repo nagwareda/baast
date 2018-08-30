@@ -1,9 +1,12 @@
 package com.tec77.bsatahalk.view.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -56,6 +59,7 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import com.tec77.bsatahalk.R;
 import com.tec77.bsatahalk.api.FastNetworkManger;
+import com.tec77.bsatahalk.api.request.ForgetPassRequest;
 import com.tec77.bsatahalk.api.request.LoginRequest;
 import com.tec77.bsatahalk.api.request.RequestOtherLogin;
 import com.tec77.bsatahalk.database.SharedPref;
@@ -69,6 +73,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -78,7 +83,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private LoginButton fbLoginBtn;
     private SignInButton googleLoginBtn;
     private EditText emailETxt, passETxt;
-    private TextView forgetPassTxt, help;
+    private TextView forgetPassTxt;
     private LinearLayout newUser;
     private CallbackManager callbackManager;
     private AccessTokenTracker accessTokenTracker;
@@ -101,7 +106,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pref = new SharedPref(this);
+        pref.putString("lan","ar");
+        setLocale(getApplicationContext(),"ar");
+
         if (pref.loggeedIn()) {
+           // setLocale(getApplicationContext(),"ar");
             Intent intent = new Intent(this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
@@ -122,7 +131,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         loginBtn = findViewById(R.id.LoginActivity_btn_login);
         emailETxt = findViewById(R.id.LoginActivity_EditText_email);
         passETxt = findViewById(R.id.LoginActivity_EditText_Password);
-        //forgetPassTxt = findViewById(R.id.LoginActivity_Text_forgetPass);
+        forgetPassTxt = findViewById(R.id.LoginActivity_textView_forgetPass);
         newUser = findViewById(R.id.LoginActivity_linear_newUser);
 
         fbLoginBtn = findViewById(R.id.LoginActivity_btn_fbLogin);
@@ -143,6 +152,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void handelFBLogin() {
+
+        Log.d("AppLog", "key:" + FacebookSdk.getApplicationSignature(this));
+
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
@@ -177,10 +189,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                                     System.out.println("JSONRESPOMSEEE " + response.toString());
 
                                     String email = object.getString("email");
-                                    //String phone = object.getString("phone");
-//                                    String name = object.getString("name");
-//                                    Profile profile = Profile.getCurrentProfile();
-//                                    Uri uri = (Uri) profile.getProfilePictureUri(200, 200);
 
                                     if (email.isEmpty())
                                         showEmailRequestDialog(object);
@@ -211,105 +219,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             }
         });
 
-//        facebookLoginCallback = new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//
-//                 handleFacebookAccessToken(loginResult.getAccessToken());
-//                //accessToken = AccessToken.getCurrentAccessToken();
-//                fbProfile = Profile.getCurrentProfile();
-////                if (fbProfile != null) {
-////                    pref.putString("profile", String.valueOf(fbProfile.getProfilePictureUri(100, 100)).toString());
-////                    pref.putString("userName", fbProfile.getName());
-////                   // pref.setLoggedin(true);
-////                }
-//                GraphRequest.newMeRequest(
-//                        loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-//                            @Override
-//                            public void onCompleted(JSONObject me, GraphResponse response) {
-//                                if (response.getError() != null) {
-//                                    // handle error
-//                                } else {
-//                                    // get email and id of the user
-//                                    userEmail = me.optString("email");
-//                                    if (userEmail.isEmpty()) {
-//                                        showEmailRequestDialog();
-//                                    } else
-//                                        callFbLoginApi();
-//                                    //  String id = me.optString("id");
-//
-//                                }
-//                            }
-//                        }).executeAsync();
-//
-////                Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-////                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-////                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//                Log.d("error", error.toString());
-//
-//            }
-//        };
-//        fbLoginBtn.registerCallback(callbackManager, facebookLoginCallback);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-//        if (opr.isDone()) {
-//            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-//            // and the GoogleSignInResult will be available instantly.
-//            Log.d(TAG, "Got cached sign-in");
-//            GoogleSignInResult result = opr.get();
-//            handleGoogleSignInResult(result);
-//        } else {
-//            // If the user has not previously signed in on this device or the sign-in has expired,
-//            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-//            // single sign-on will occur in this branch.
-//            showProgressDialog();
-//            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-//                @Override
-//                public void onResult(GoogleSignInResult googleSignInResult) {
-//                    hideProgressDialog();
-//                    handleGoogleSignInResult(googleSignInResult);
-//                }
-//            });
-//        }
-
-
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//            for (UserInfo profile : currentUser.getProviderData()) {
-//                // Id of the provider (ex: google.com)
-//                String providerId = profile.getProviderId();
-//
-//                // UID specific to the provider
-//                String uid = profile.getUid();
-//
-//                // Name, email address, and fake_profile photo Url
-//                String name = profile.getDisplayName();
-//                String email = profile.getEmail();
-//                Uri photoUrl = profile.getPhotoUrl();
-//            };
-//            //updateUI(currentUser);
-//        }
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Profile profile = Profile.getCurrentProfile();
     }
 
     @Override
@@ -321,7 +230,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private void actionView() {
         loginBtn.setOnClickListener(this);
-//        forgetPassTxt.setOnClickListener(this);
+      forgetPassTxt.setOnClickListener(this);
         newUser.setOnClickListener(this);
         googleLoginBtn.setOnClickListener(this);
     }
@@ -340,20 +249,90 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onClick(View view) {
         if (view.getId() == loginBtn.getId()) {
-            if (emailETxt.getText().toString().isEmpty() || emailETxt.getError() != null )
+            if (emailETxt.getText().toString().isEmpty()||passETxt.getText().toString().isEmpty() || emailETxt.getError() != null)
                 Toast.makeText(this, getString(R.string.toast_ensure_data), Toast.LENGTH_SHORT).show();
             else {
-                new FastNetworkManger(this).login(prepareLoginRequest());}
+                if (CheckConnection.getInstance().checkInternetConnection(this)) {
+                    new FastNetworkManger(this).login(prepareLoginRequest());
+                } else {
+                    Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                }
+            }
         } else if (view.getId() == newUser.getId()) {
             Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
             startActivity(intent);
         } else if (view.getId() == googleLoginBtn.getId()) {
-            initGoogleSignIn();
-            googleSignIn();
+            if (CheckConnection.getInstance().checkInternetConnection(this)) {
+                initGoogleSignIn();
+                googleSignIn();
+            } else {
+                Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+            }
+
+        }else if(view.getId() == forgetPassTxt.getId()){
+            showEmailDialog();
         }
     }
 
+    private void showEmailDialog() {
+        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
+        View mView = layoutInflaterAndroid.inflate(R.layout.fragment_email_request_dialog, null);
+        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(this);
+        alertDialogBuilderUserInput.setView(mView);
+        userEmailETxtDialog = (EditText) mView.findViewById(R.id.EmailRequestDialog_EditTxt_userMail);
+        validateDialogEmail();
+
+        alertDialogBuilderUserInput
+                .setCancelable(false)
+                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogBox, int id) {
+
+                    }
+                })
+
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogBox, int id) {
+                                dialogBox.cancel();
+                            }
+                        });
+
+        final AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+        alertDialogAndroid.show();
+
+        alertDialogAndroid.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userEmailETxtDialog.setFocusable(false);
+                Boolean wantToCloseDialog = false;
+                if (validateDialogEmail())
+                    wantToCloseDialog = true;
+                //Do stuff, possibly set wantToCloseDialog to true then...
+                if (wantToCloseDialog) {
+                    userEmail = userEmailETxtDialog.getText().toString();
+                    callForgetPassRequest(userEmail);
+                    alertDialogAndroid.dismiss();
+                }
+                //else dialog stays open. Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
+            }
+        });
+
+    }
+
+    private void callForgetPassRequest(String userEmail) {
+       ForgetPassRequest body = new ForgetPassRequest();
+       body.setEmail(userEmail);
+        if (CheckConnection.getInstance().checkInternetConnection(this)) {
+            new FastNetworkManger(this).forgetPassRequest(body);
+        } else {
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
     private void initGoogleSignIn() {
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestServerAuthCode(getString(R.string.google_server_client_id))
@@ -418,53 +397,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     }
 
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d("FacebookAccessToken", "handleFacebookAccessToken:" + token);
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        //Log.d("authUserId", mAuth.getUid() + "");
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("signInWithCredential", "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d("authCurrUserId", user.getUid());
-
-//                            userDbReference.child(user.getUid());
-//                            addUserDataToDB(user);
-
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("signInWithCredential", "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            // updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
-    }
-
-    private void addUserDataToDB(FirebaseUser user) {
-
-        //add fake_profile pic to the user
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName("Jane Q. User")
-                .setPhotoUri(Uri.parse("https://example.com/jane-q-user/fake_profile.jpg"))
-                .build();
-
-        Map map = new HashMap();
-        // put correct values in keys
-        map.put("email", user.getEmail());
-        map.put("userName", user.getDisplayName());
-        map.put("photo", user.getPhotoUrl());
-        userDbReference.setValue(map);
-    }
 
     private boolean validateDialogEmail() {
         userEmailETxtDialog.setFocusable(true);
@@ -486,41 +418,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        updateUI(false);
                     }
                 });
     }
 
 
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.loading));
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
-        }
-    }
-
-    private void updateUI(boolean isSignedIn) {
-        if (isSignedIn) {
-//            btnSignIn.setVisibility(View.GONE);
-//            btnSignOut.setVisibility(View.VISIBLE);
-//            btnRevokeAccess.setVisibility(View.VISIBLE);
-//            llProfileLayout.setVisibility(View.VISIBLE);
-        } else {
-//            btnSignIn.setVisibility(View.VISIBLE);
-//            btnSignOut.setVisibility(View.GONE);
-//            btnRevokeAccess.setVisibility(View.GONE);
-//            llProfileLayout.setVisibility(View.GONE);
-        }
-    }
 
     private void handleGoogleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleGoogleSignInResult:" + result.isSuccess());
@@ -530,29 +432,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             Log.d("code", authCode + "");
             requestAccessToken(authCode, acct);
 
-
-//            // Signed in successfully, show authenticated UI.
-//            GoogleSignInAccount acct = result.getSignInAccount();
-//            //Toast.makeText(this, acct.getDisplayName(), Toast.LENGTH_SHORT).show();
-//            Log.e(TAG, "display name: " + acct.getDisplayName());
-//
-//            String personName = acct.getDisplayName();
-//            String personPhotoUrl = acct.getPhotoUrl().toString();
-//            String email = acct.getEmail();
-//
-//            Log.e(TAG, "Name: " + personName + ", email: " + email
-//                    + ", Image: " + personPhotoUrl);
-////            txtName.setText(personName);
-////            txtEmail.setText(email);
-////            Glide.with(getApplicationContext()).load(personPhotoUrl)
-////                    .thumbnail(0.5f)
-////                    .crossFade()
-////                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-////                    .into(imgProfilePic);
-//            updateUI(true);
         } else {
-            // Signed out, show unauthenticated UI.
-            //updateUI(false);
+
         }
     }
 
@@ -598,7 +479,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         if (CheckConnection.getInstance().checkInternetConnection(LoginActivity.this)) {
             dialog.show();
             RequestOtherLogin fbLoginRequest = new RequestOtherLogin();
-            fbLoginRequest.setPassword("-");
+            fbLoginRequest.setPassword("123456");
             fbLoginRequest.setPhone("-");
             fbLoginRequest.setType("facebook_login");
             fbLoginRequest.setFacebookToken(accessToken.toString());
@@ -627,7 +508,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         googleLoginRequest.setEmail(acct.getEmail());
         googleLoginRequest.setName(acct.getDisplayName());
         googleLoginRequest.setPhone("-");
-        googleLoginRequest.setPassword("-");
+        googleLoginRequest.setPassword("123456");
         googleLoginRequest.setFacebookToken(accToken);
         if (!acct.getPhotoUrl().toString().isEmpty())
             googleLoginRequest.setUserImage(acct.getPhotoUrl().toString());
@@ -660,5 +541,24 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
+    private void setLocale(final Context ctx, String lang) {
+        //langBoolean = true;
+        Locale myLocale = new Locale(lang);
+        Locale.setDefault(myLocale);
+        Configuration config = new Configuration();
+        config.locale=myLocale;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            ctx.createConfigurationContext(config);
+            ctx.getResources().updateConfiguration(config, ctx.getResources().getDisplayMetrics());
+            // restartActivity();
+        }else{
+            getApplicationContext().getResources().updateConfiguration(config,null);
+        }
+
+
+
     }
 }

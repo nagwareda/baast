@@ -1,7 +1,6 @@
 package com.tec77.bsatahalk.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.tec77.bsatahalk.R;
 import com.tec77.bsatahalk.api.response.PartModelYear;
-import com.tec77.bsatahalk.view.activity.StudentListActivity;
 
 import java.util.ArrayList;
 
@@ -40,7 +38,7 @@ public class ClassesRecyclerAdapter extends RecyclerView.Adapter<ClassesRecycler
     @Override
     public ClassesRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.primary_list_item, parent, false);
+                .inflate(R.layout.category_list_item, parent, false);
         ClassesRecyclerAdapter.ViewHolder holder = new ClassesRecyclerAdapter.ViewHolder(itemView);
         return holder;
     }

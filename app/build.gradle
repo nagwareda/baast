@@ -17,11 +17,11 @@ repositories {
 
 android {
     signingConfigs {
-        alias {
-            storeFile file('C:/Users/Nagwa/Desktop/key.txt')
-            keyAlias 'alias'
-            keyPassword '123'
-            storePassword '123'
+        nagwa {
+            keyAlias 'nagwa'
+            keyPassword '123456'
+            storeFile file('C:/Users/Nagwa/Desktop/basathalakkeystore')
+            storePassword '123456'
         }
     }
     compileSdkVersion 26
@@ -38,6 +38,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.nagwa
         }
     }
 }

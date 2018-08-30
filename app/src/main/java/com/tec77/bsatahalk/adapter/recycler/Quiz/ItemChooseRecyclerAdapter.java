@@ -1,4 +1,4 @@
-package com.tec77.bsatahalk.adapter.Quiz;
+package com.tec77.bsatahalk.adapter.recycler.Quiz;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -65,8 +65,8 @@ public class ItemChooseRecyclerAdapter extends RecyclerView.Adapter<ItemChooseRe
 
             } else if (holder.radioButton3.getId() == selectedRBId) {
                 holder.chooseRadioGroup.check(holder.radioButton3.getId());
-
-            } else if (holder.radioButton4.getId() == selectedRBId) {
+            }
+             else if (holder.radioButton4.getId() == selectedRBId) {
                 holder.chooseRadioGroup.check(holder.radioButton4.getId());
 
             }
@@ -90,7 +90,7 @@ public class ItemChooseRecyclerAdapter extends RecyclerView.Adapter<ItemChooseRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView questionTxt, ansTxt;
         public RadioGroup chooseRadioGroup;
-        public RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+        public RadioButton radioButton1, radioButton2, radioButton3,radioButton4;
         String studentAns = "";
 
         public ViewHolder(View itemView) {

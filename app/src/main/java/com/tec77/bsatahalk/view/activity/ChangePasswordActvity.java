@@ -29,7 +29,7 @@ public class ChangePasswordActvity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.activity_change_password_actvity);
         initViews();
         actionViews();
-        //callChangePassApi();
+
     }
 
     private void initViews() {

@@ -17,10 +17,6 @@
         <item name="android:textSize">20dp</item>
     </style>
 
-    <style name="DialogAnimation_2">
-        <item name="android:windowEnterAnimation">@anim/slide_up</item>
-        <item name="android:windowExitAnimation">@anim/slide_bottom</item>
-    </style>
 
     <style name="noAnimTheme" parent="android:Theme">
         <item name="android:windowAnimationStyle">@null</item>

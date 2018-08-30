@@ -53,7 +53,7 @@ public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlaye
     private LoginManager manager;
     private ShareDialog shareDialog;
     private ImageView backImg;
-    private String [] stringYoutubeUrlArray;
+    private String[] stringYoutubeUrlArray;
 
 
     @Override
@@ -115,14 +115,18 @@ public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlaye
         } else if (view.getId() == notUnderStandLinear.getId())
             handelRateRequest(false);
         else if (view.getId() == shareOnFbBtn.getId()) {
-            handelFbShare();
+            if (CheckConnection.getInstance().checkInternetConnection(this))
+                handelFbShare();
+            else
+                Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+
         } else if (view.getId() == startQuizBtn.getId()) {
             Const.staticQuestionMarkTxtList.clear();
             Intent intent = new Intent(Lesson_Activity.this, QuizActivity2.class);
             intent.putExtra("lessonId", lesson.getId());
             startActivity(intent);
         } else if (view.getId() == haveQuestionBtn.getId()) {
-            Intent intent = new Intent(Lesson_Activity.this, LessonQuestionActivity.class);
+            Intent intent = new Intent(Lesson_Activity.this, LessonStudentQuestionActivity.class);
 //            intent.putExtra("from","contactUs");
             intent.putExtra("lessonName", lesson.getName());
             startActivity(intent);
@@ -237,7 +241,7 @@ public class Lesson_Activity extends YouTubeBaseActivity implements YouTubePlaye
         if (!b) {
             stringYoutubeUrlArray = lesson.getUrl().split("&");
 //            youTubePlayer.cueVideo(lesson.getUrl()); // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
-             youTubePlayer.cueVideo(stringYoutubeUrlArray[0]);
+            youTubePlayer.cueVideo(stringYoutubeUrlArray[0]);
         }
 
     }

@@ -54,7 +54,7 @@ public class TopTenFragment extends BaseFragment implements TopTenListResponseLi
         refreshStudentList = view.findViewById(R.id.TopTenFragment_SwipeRefreshLayout_refresh);
         refreshStudentList.setColorSchemeResources(R.color.colorPrimary);
         title = getActivity().findViewById(R.id.HomeActivity_TextView_title);
-        title.setText(getString(R.string.nav_Home));
+        title.setText(getString(R.string.topTen));
         networkFailedLinearLayout = view.findViewById(R.id.TopTenFragment_LinearLayout_NetworkFailed);
         refreshConnection = view.findViewById(R.id.TopTenFragment_btn_refreshConnection);
         refreshStudentList.setOnRefreshListener(this);

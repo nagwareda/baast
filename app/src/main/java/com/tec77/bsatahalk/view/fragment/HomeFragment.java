@@ -40,14 +40,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
 
 
     private TextView title, ediomFirsr, ediomSecond, vedioTitleTxt;
-    private LinearLayout networkFailedLinearLayout, btnLinear, txtLinear;
+    private LinearLayout networkFailedLinearLayout;
     private Button refreshConnection;
-    private SharedPref sharedPref;
     private View view;
     private ArrayList<MainCategoryRecyclerModel> categoryList = new ArrayList<>();
     private ImageView e3rabLinear, emla2Linear, classLinear, topTenLinear;
     private final String API_KEY = Const.YOUTUBE_API_KEY;
-    private String VIDEO_ID, VIDEO_TITLE;
+    private String VIDEO_ID;
     private YouTubePlayer youTubePlayer1;
     private RotateLoading loading;
     YouTubePlayerSupportFragment youTubePlayerFragment;
@@ -76,7 +75,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RECOVERY_REQUEST) {
-            // Retry initialization if user performed a recovery action
             getYouTubePlayerProvider().initialize(YOUTUBE_API_KEY, this);
         }
     }
@@ -84,8 +82,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
     private void initView() {
         title = getActivity().findViewById(R.id.HomeActivity_TextView_title);
         title.setText(getString(R.string.nav_Home));
-        btnLinear = view.findViewById(R.id.HomeFragment_linear_btns);
-        //txtLinear = view.findViewById(R.id.TopTenFragment_linear_txts);
         networkFailedLinearLayout = view.findViewById(R.id.HomeFragment_LinearLayout_NetworkFailed);
         refreshConnection = view.findViewById(R.id.HomeFragment_btn_refreshConnection);
         e3rabLinear = view.findViewById(R.id.HomeFragment_linear_e3raab);
@@ -93,18 +89,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
         classLinear = view.findViewById(R.id.HomeFragment_linear_class);
         topTenLinear = view.findViewById(R.id.HomeFragment_linear_topTen);
         ediomFirsr = view.findViewById(R.id.HomeFragment_ediom_first);
-        ediomFirsr.setText("النحوُ أفضَلُ مَا يُقرا وَيقتبَسُ" + "\t* " + "لِأنَّهُ لِكِتَابِ اللّه يُلتَمَسُ");
+        ediomFirsr.setText("النحوُ أفضَلُ مَا يُقرا وَيقتبَسُ" + "*" + "لِأنَّهُ لِكِتَابِ اللّه يُلتَمَسُ");
 
         ediomSecond = view.findViewById(R.id.HomeFragment_ediom_second);
-        ediomSecond.setText("إذَا الفَتَى عَرَفَ الإعرَابَ كَانَ لَهُ" + "\t* " + "مَهَابَةٌ لِأُناسٍ حَولَهُ جَلَسُوا");
+        ediomSecond.setText("إذَا الفَتَى عَرَفَ الإعرَابَ كَانَ لَهُ" + "*" + "مَهَابَةٌ لِأُناسٍ حَولَهُ جَلَسُوا");
 
         loading = view.findViewById(R.id.HomeFragment_RotateLoading_loading);
 
         vedioTitleTxt = view.findViewById(R.id.HomeFragment_TextView_videoTitle);
         initCategoryList();
 
-        initYoutube();
-        callVideoContentRequest();
+
+
 
 
     }
@@ -114,7 +110,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
             networkFailedLinearLayout.setVisibility(View.GONE);
             new FastNetworkManger(getActivity()).getHomeVideoContent(this, loading);
         } else {
-            networkFailedLinearLayout.setVisibility(View.VISIBLE);
+            Toast.makeText(getActivity(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -132,7 +128,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
         categoryList.add(new MainCategoryRecyclerModel(R.drawable.emlaa, getString(R.string.emlaa_grammer)));
         categoryList.add(new MainCategoryRecyclerModel(R.drawable.classes, getString(R.string.classes_title)));
         categoryList.add(new MainCategoryRecyclerModel(R.drawable.top_ten_splash, getString(R.string.topTen)));
-        // initCategoryListAdapter();
     }
 
     private void actionViews() {
@@ -164,7 +159,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
             replaceFragmentFromCategory(new Emla2SerialFragment(), "Emla2SerialFragment");
 
         } else if (view.getId() == classLinear.getId()) {
-            replaceFragmentFromCategory(new CategoryFragment(), "Emla2SerialFragment");
+            replaceFragmentFromCategory(new CategoryFragment(), "CategoryFragment");
 
         } else if (view.getId() == topTenLinear.getId()) {
             replaceFragmentFromCategory(new TopTenFragment(), "TopTenFragment");
@@ -189,11 +184,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
             youtubeInitSuccess =true;
             if(vedioRequestSuccess)
                 youTubePlayer.cueVideo(VIDEO_ID);
-            //youTubePlayer.addFullscreenControlFlag(YouTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION);
-            // youTubePlayer.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_ALWAYS_FULLSCREEN_IN_LANDSCAPE | youTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION);
-
-            //youTubePlayer1.cueVideo(VIDEO_ID);
-            //youTubePlayer.play();
         }
     }
 
@@ -220,12 +210,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void onResume() {
         super.onResume();
-//        if(youTubePlayer1!= null && !youTubePlayer1.isPlaying())
-//            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        initYoutube();
+        callVideoContentRequest();
         if (youTubePlayer1 != null)
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                 youTubePlayer1.setFullscreen(false);
-        // youTubeView.initialize(YOUTUBE_API_KEY, this);
     }
 
     @Override
@@ -239,28 +228,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void videoContent(String videoTitle, String videoUrl) {
-       // VIDEO_ID = videoUrl;
+
         String[] stringYoutubeUrlArray = videoUrl.split("&");
         VIDEO_ID = stringYoutubeUrlArray[0];
         vedioTitleTxt.setText(videoTitle);
         vedioRequestSuccess= true;
-        if(youtubeInitSuccess)
+        if(youtubeInitSuccess && youTubePlayer1!= null)
         youTubePlayer1.cueVideo(VIDEO_ID);
 
     }
 
     @Override
     public void onFullscreen(boolean b) {
-//        if (b)
-//            youTubePlayer1.play();
-//        if(b &&  getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-//                && !youTubePlayer1.isPlaying()){
-//           youTubePlayer1.play();
-//        }
-//        if(!b &&  getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-//                && !youTubePlayer1.isPlaying()){
-//            youTubePlayer1.play();
-//        }
 
     }
 
@@ -293,10 +272,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
 
         @Override
         public void onSeekTo(int i) {
-            // youTubePlayer1.seekRelativeMillis(i);
-            // youTubePlayer1.seekToMillis(i);
-            // Called when a jump in playback position occurs, either
-            // due to user scrubbing or call to seekRelativeMillis() or seekToMillis()
+
         }
     }
 

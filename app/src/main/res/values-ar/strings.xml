@@ -102,9 +102,8 @@
     <string name="select_class">اختر الصف</string>
     <string name="timeOut">انتهى وقت الاتصال,أعد المحاولة</string>
     <string name="selected_word">الكلمة المستخرجة</string>
-    <string name="email_not_found">البريد الالكتروني غير متوفر</string>
+    <string name="email_not_found">هذا البريد الالكتروني غير متوفر</string>
     <string name="enter_your_email">برجاء إدخال بريدك الالكتروني</string>
-    <string name="hello_blank_fragment">ت</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
     <string name="first">الاول</string>

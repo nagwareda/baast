@@ -24,8 +24,8 @@ import com.tec77.bsatahalk.view.activity.EditProfileActivity;
 
 public class ProfileFragment extends Fragment implements ProfileResponseListener, View.OnClickListener {
 
-    private TextView nameTxt, emailTxt, phoneTxt, quizzesNoTxt, totlaDgreeTxt, title,ediom;
-    private LinearLayout networkFailedLinearLayout;
+    private TextView nameTxt, emailTxt, phoneTxt, quizzesNoTxt, totalDgreeTxt, title, ediom;
+    private LinearLayout networkFailedLinearLayout, layout;
     private Button refreshConnection, forgetPassBtn, editProfileBtn;
     private ImageView profile;
     PartModelStudent profileResponse;
@@ -45,13 +45,17 @@ public class ProfileFragment extends Fragment implements ProfileResponseListener
     private void callProfileRequest() {
         if (CheckConnection.getInstance().checkInternetConnection(getActivity())) {
             networkFailedLinearLayout.setVisibility(View.GONE);
+            layout.setVisibility(View.VISIBLE);
             new FastNetworkManger(getActivity()).getProfile(this);
-        } else
+        } else {
             networkFailedLinearLayout.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.GONE);
+        }
     }
 
 
     private void initViews() {
+        layout = view.findViewById(R.id.ProfileFragment_layout);
         forgetPassBtn = view.findViewById(R.id.ProfileFragment_Btn_changePass);
         forgetPassBtn.setOnClickListener(this);
         editProfileBtn = view.findViewById(R.id.ProfileFragment_Btn_EditProfile);
@@ -60,12 +64,12 @@ public class ProfileFragment extends Fragment implements ProfileResponseListener
         emailTxt = view.findViewById(R.id.ProfileFragment_txt_emailTxt);
         phoneTxt = view.findViewById(R.id.ProfileFragment_txt_phoneTxt);
         quizzesNoTxt = view.findViewById(R.id.ProfileFragment_txt_quizesNoTxt);
-        totlaDgreeTxt = view.findViewById(R.id.ProfileFragment_txt_totalDegreeTxt);
+        totalDgreeTxt = view.findViewById(R.id.ProfileFragment_txt_totalDegreeTxt);
         networkFailedLinearLayout = view.findViewById(R.id.ProfileFragment_LinearLayout_NetworkFailed);
         refreshConnection = view.findViewById(R.id.ProfileFragment_btn_refreshConnection);
         profile = view.findViewById(R.id.ProfileFragment_image_profile);
         ediom = view.findViewById(R.id.ProfileFragment_txt_ediom);
-        ediom.setText("إن الذي ملأ اللغات محاسن جعل الجمال وسره في الضاد"+"\n"+"(الشاعر أحمد شوقي)");
+        ediom.setText("إن الذي ملأ اللغات محاسن جعل الجمال وسره في الضاد" + "\n" + "(الشاعر أحمد شوقي)");
         title = getActivity().findViewById(R.id.HomeActivity_TextView_title);
         title.setText(getActivity().getString(R.string.nav_profile));
 
@@ -86,7 +90,7 @@ public class ProfileFragment extends Fragment implements ProfileResponseListener
         emailTxt.setText(responseProfile.getEmail());
         phoneTxt.setText(responseProfile.getPhone());
         quizzesNoTxt.setText("" + responseProfile.getNumberQuizes() + "");
-        totlaDgreeTxt.setText("" + responseProfile.getTotalDegree() + "");
+        totalDgreeTxt.setText("" + responseProfile.getTotalDegree() + "");
 
         if (!responseProfile.getUser_image().isEmpty())
             Picasso.with(getActivity())
@@ -95,20 +99,13 @@ public class ProfileFragment extends Fragment implements ProfileResponseListener
                     .error(R.color.blackColor)
                     .centerCrop().fit()
                     .into(profile);
-//            Glide.with(getActivity())
-//                    .load(responseProfile.getUser_image())
-//                    .into(profile);
+
 
         if (SharedPref.getInstance(getActivity()).getBoolean("otherLogin")) {
             forgetPassBtn.setVisibility(View.GONE);
             editProfileBtn.setVisibility(View.GONE);
         }
-//            Picasso.with(getActivity())
-//                    .load(responseProfile.getUser_image())
-//                    .placeholder(R.drawable.fake_profile)
-//                    .error(R.color.blackColor)
-//                    .centerCrop().fit()
-//                    .into(profile);
+
     }
 
     @Override

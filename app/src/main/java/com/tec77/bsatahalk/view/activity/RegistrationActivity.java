@@ -32,6 +32,7 @@ import com.squareup.picasso.Picasso;
 import com.tec77.bsatahalk.R;
 import com.tec77.bsatahalk.api.FastNetworkManger;
 import com.tec77.bsatahalk.api.request.RegistrationRequest;
+import com.tec77.bsatahalk.utils.CheckConnection;
 import com.tec77.bsatahalk.utils.ValidateEditText;
 
 import java.io.ByteArrayOutputStream;
@@ -40,15 +41,12 @@ import java.util.Map;
 
 public class RegistrationActivity extends BaseActivity implements View.OnClickListener {
 
-    private EditText emailETxt, userNameETxt, passETxt, confirmPassETxt,phoneETxt;
+    private EditText emailETxt, userNameETxt, passETxt, confirmPassETxt, phoneETxt;
     private ImageView profilePic;
     private Button saveBtn;
     private Toolbar toolbar;
-    private FirebaseAuth mAuth;
-    private DatabaseReference userDbReference;
     private int MY_PERMISSIONS_REQUEST_CAMERA = 2;
     private int MY_PERMISSIONS_REQUEST_READ_STORAGE = 1;
-    private String encodedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +58,6 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initViews() {
-        mAuth = FirebaseAuth.getInstance();
-        userDbReference = FirebaseDatabase.getInstance().getReference().child("users");
         emailETxt = findViewById(R.id.RegistrationActivity_EditText_email);
         userNameETxt = findViewById(R.id.RegistrationActivity_EditText_userName);
         passETxt = findViewById(R.id.RegistrationActivity_EditText_Password);
@@ -81,13 +77,6 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
         profilePic.setOnClickListener(this);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
-    }
 
     @Override
     public void onClick(View view) {
@@ -98,7 +87,11 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                     || emailETxt.getError() != null || confirmPassETxt.getError() != null || passETxt.getError() != null)
                 Toast.makeText(this, getString(R.string.toast_ensure_data), Toast.LENGTH_SHORT).show();
             else {
-               new FastNetworkManger(this).signUp(prepareRegisterRequest());
+                if (CheckConnection.getInstance().checkInternetConnection(this)) {
+                    new FastNetworkManger(this).signUp(prepareRegisterRequest());
+                } else {
+                    Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                }
             }
         } else if (view.getId() == profilePic.getId())
             dialogShowPhoto();
@@ -109,74 +102,13 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
         onBackPressed();
         return true;
     }
+
     private void validationFields() {
         ValidateEditText validateEditText = new ValidateEditText(this, emailETxt);
         emailETxt = (EditText) validateEditText.ValidateEmail();
         ValidateEditText validateEditText1 = new ValidateEditText(this, confirmPassETxt);
         confirmPassETxt = (EditText) validateEditText1.ValidateConfirmPassword(passETxt);
 
-    }
-
-    private void ValidatePass() {
-        if(!passETxt.getText().toString().equals(confirmPassETxt.getText().toString())){
-            if(confirmPassETxt.getError() == null)
-                confirmPassETxt.setError(getString(R.string.error_confirm_password));
-        }
-    }
-
-    private void createNewUser() {
-        mAuth.createUserWithEmailAndPassword(emailETxt.getText().toString(), passETxt.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("createUserWithEmail", "createUserWithEmail:success");
-                            Toast.makeText(RegistrationActivity.this, "emial vervifation", Toast.LENGTH_SHORT).show();
-                            final FirebaseUser user = mAuth.getCurrentUser();
-                            user.sendEmailVerification()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Log.d("email", "Email sent.");
-                                                Toast.makeText(RegistrationActivity.this, "success+ " + user.getUid(), Toast.LENGTH_SHORT).show();
-                                                userDbReference.child(user.getUid());
-                                                //user.updateProfile()
-                                                addUserDataToDB();
-                                                //  updateUI(user);
-                                            } else {
-                                                Toast.makeText(RegistrationActivity.this, "error while verification", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("createUserWithEmail", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegistrationActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            // updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
-    }
-
-    private void addUserDataToDB() {
-
-//        //add fake_profile pic to the user
-//        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                .setDisplayName("Jane Q. User")
-//                .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
-//                .build();
-
-        Map map = new HashMap();
-        // put correct values in keys
-        map.put("email", emailETxt.getText().toString());
-        map.put("userName", userNameETxt.getText().toString());
-        map.put("photo", "");
-        userDbReference.setValue(map);
     }
 
 
@@ -228,13 +160,12 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     }
 
     public String convertImage2Base64() {
-        // bitmap = ((BitmapDrawable) profile.getDrawable()).getBitmap();
+
         profilePic.buildDrawingCache();
         Bitmap bm = profilePic.getDrawingCache();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, bos); //bm is the bitmap object
         byte[] b = bos.toByteArray();
-        encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
         return "data:image/jpeg;base64," + Base64.encodeToString(b, 0);
     }
 
@@ -276,7 +207,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private  RegistrationRequest prepareRegisterRequest(){
+    private RegistrationRequest prepareRegisterRequest() {
         RegistrationRequest body = new RegistrationRequest();
         body.setEmail(emailETxt.getText().toString());
         body.setName(userNameETxt.getText().toString());
